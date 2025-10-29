@@ -8,9 +8,9 @@
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       marincarroll
+ * Text Domain:       discogs-blocks
  *
- * @package CreateBlock
+ * @package Marincarroll\Discogs
  */
 namespace Marincarroll\Discogs;
 
@@ -58,3 +58,9 @@ function register_block_types() {
 	}
 }
 add_action( 'init', 'Marincarroll\Discogs\register_block_types' );
+
+
+// Options page.
+require_once 'inc/options-page.php';
+add_action('admin_menu', 'Marincarroll\Discogs\create_options_page');
+add_action('admin_menu', 'Marincarroll\Discogs\create_authentication_settings');
