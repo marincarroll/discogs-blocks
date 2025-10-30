@@ -19,7 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'Marincarroll\Discogs\BUILD_DIR' ) ) {
-	define( 'Marincarroll\Discogs\BUILD_DIR', plugin_dir_path( __FILE__ ) . 'build');
+	define( 'Marincarroll\Discogs\BUILD_DIR', plugin_dir_path(__FILE__) . '/build');
+}
+
+if ( ! defined( 'Marincarroll\Discogs\BUILD_URL' ) ) {
+	define( 'Marincarroll\Discogs\BUILD_URL', plugin_dir_url(__FILE__) . '/build');
 }
 
 // Registers block types.
@@ -29,5 +33,5 @@ add_action( 'init', 'Marincarroll\Discogs\register_block_types' );
 // Creates settings and options page.
 require_once 'inc/class-options-page.php';
 if( is_admin() ) {
-	//new OptionsPage();
+	new OptionsPage();
 }

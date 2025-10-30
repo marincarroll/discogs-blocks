@@ -10,7 +10,8 @@ namespace Marincarroll\Discogs;
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
 function register_block_types() {
-	$manifest = BUILD_DIR . '/blocks/blocks-manifest.php';
+	$blocks_dir = BUILD_DIR . '/blocks';
+	$manifest = BUILD_DIR . '/blocks-manifest.php';
 
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
@@ -20,9 +21,7 @@ function register_block_types() {
 	 * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
 	 */
 	if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
-		wp_register_block_types_from_metadata_collection( BUILD_DIR . '/blocks/',
-			$manifest
-		);
+		wp_register_block_types_from_metadata_collection( $blocks_dir, $manifest );
 	}
 
 	/**
@@ -31,8 +30,5 @@ function register_block_types() {
 	 *
 	 * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
 	 */
-	wp_register_block_metadata_collection(
-		BUILD_DIR . '/blocks/',
-		BUILD_DIR . '/blocks/blocks-manifest.php'
-	);
+	wp_register_block_metadata_collection( $blocks_dir, $manifest );
 }
