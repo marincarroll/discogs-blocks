@@ -27,7 +27,7 @@ if ( ! defined( 'Marincarroll\Discogs\BUILD_URL' ) ) {
 }
 
 // Registers block types.
-require_once 'inc/register_block_types.php';
+require_once 'inc/register-block-types.php';
 add_action( 'init', 'Marincarroll\Discogs\register_block_types' );
 
 // Creates settings and options page.
