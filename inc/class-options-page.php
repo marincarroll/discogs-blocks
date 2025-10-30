@@ -38,27 +38,39 @@ class OptionsPage {
 
 	public function add_authentication_settings_section() {
 		add_settings_section(
-			'marincarroll_discogs_authentication',
+			$this->_page_slug . '_authentication',
 			__('API authentication', 'discogs-blocks'),
 			'',
 			$this->_page_slug
 		);
 
+		$token = get_option( $this->_page_slug . '_authentication_token' );
+
 		add_settings_field(
-			'token',
-			'Your Discogs API Token',
-			function(){
-				echo '<input id="token" type="text">token field</input>';
-			},
+			'access_token',
+			'Personal Access Token',
+			array( $this, 'authentication_token_field_callback' ),
 			$this->_page_slug,
 			$this->_page_slug . '_authentication'
 		);
 	}
 
+	public function authentication_token_field_callback() {
+		$option_name = 'access_token';
+		$option = get_option( $option_name );
+
+		printf(
+			'<label for="%1$s" class="screen-reader-text">%2$s</label><input type="text" id="%1$s" name="%1$s" value="%3$s" />',
+			$option_name,
+			__('Enter Personal Access Token', 'discogs-blocks'),
+			isset( $option ) ? esc_attr( $option ) : '',
+		);
+	}
+
 	public function register_authentication_settings() {
 		register_setting(
-			$this->_page_slug . '_authentication',
-			$this->_page_slug . '_authentication_token',
+			$this->_page_slug,
+			'access_token',
 			array (
 				'type'    => 'string',
 				'default' => ''
