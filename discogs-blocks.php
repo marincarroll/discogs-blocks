@@ -61,6 +61,7 @@ add_action( 'init', 'Marincarroll\Discogs\register_block_types' );
 
 
 // Options page.
-require_once 'inc/options-page.php';
-add_action('admin_menu', 'Marincarroll\Discogs\create_options_page');
-add_action('admin_menu', 'Marincarroll\Discogs\create_authentication_settings');
+require_once 'inc/class-options-page.php';
+if( is_admin() ) {
+	new OptionsPage();
+}
