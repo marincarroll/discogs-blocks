@@ -32,3 +32,20 @@ function register_block_types() {
 	 */
 	wp_register_block_metadata_collection( $blocks_dir, $manifest );
 }
+
+/**
+ * Adds custom Discogs Blocks category.
+ *
+ * @param array $categories The initial category list.
+ *
+ * @return array The updated category list.
+ */
+function add_block_category( $categories ) {
+	return array(
+		...$categories,
+		array(
+			'slug'	=> 'discogs-blocks',
+			'title' => __('Discogs Blocks', 'discogs-blocks')
+		)
+	);
+}
