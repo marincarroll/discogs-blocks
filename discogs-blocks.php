@@ -26,9 +26,14 @@ if ( ! defined( 'Marincarroll\Discogs\BUILD_URL' ) ) {
 	define( 'Marincarroll\Discogs\BUILD_URL', plugin_dir_url(__FILE__) . '/build');
 }
 
+if ( ! defined( 'Marincarroll\Discogs\DISCOGS_REST_ROUTE' ) ) {
+	define( 'Marincarroll\Discogs\DISCOGS_REST_ROUTE', 'https://api.discogs.com');
+}
+
 // Registers block types.
 require_once 'inc/register-block-types.php';
 add_action( 'init', 'Marincarroll\Discogs\register_block_types' );
+add_filter( 'block_categories_all', 'Marincarroll\Discogs\add_block_category' );
 
 // Creates settings and options page.
 require_once 'inc/class-options-page.php';

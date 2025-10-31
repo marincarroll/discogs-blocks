@@ -59,7 +59,7 @@ class OptionsPage {
 			if ( $value ) {
 				$identity_endpoint = add_query_arg( array(
 					'token' => $value,
-				), 'https://api.discogs.com/oauth/identity' );
+				), DISCOGS_REST_ROUTE . '/oauth/identity' );
 
 				$identity_response = wp_remote_get( $identity_endpoint );
 				if ( wp_remote_retrieve_response_code( $identity_response ) === 200 ) {
