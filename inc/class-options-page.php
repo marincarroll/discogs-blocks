@@ -15,11 +15,11 @@ class OptionsPage {
 	private $_access_token;
 
 	/**
-	 * @var object Identity object from Discogs API.
+	 * @var object User profile resource URL from Discogs API.
 	 *
 	 * @see https://www.discogs.com/developers?srsltid=AfmBOoph0wqYbt-opRgM9uWpbYWPx4xqnZDOKdSl1myKWREh6KNll5mY#page:user-identity,header:user-identity-identity
 	 */
-	private $_discogs_identity;
+	private $_discogs_user_url;
 
 	/**
 	 * @var object User profile object from Discogs API.
@@ -35,24 +35,23 @@ class OptionsPage {
 
 	public function __construct() {
 		$this->_access_token = get_option( 'discogs_access_token', '' );
-		$this->_discogs_identity = get_option( 'discogs_identity', '' );
+		$this->_discogs_user_url = get_option( 'discogs_user_url', '' );
 		$this->set_discogs_user();
 
 		add_action( 'admin_menu', array( $this, 'create_options_page' ) );
 		add_action( 'admin_menu', array( $this, 'add_authentication_settings_section' ) );
-		add_action( 'admin_init', array( $this, 'register_authentication_settings' ) );
-		add_action( 'updated_option', array( $this, 'update_discogs_identity_option' ), 10, 3 );
+		add_action( 'updated_option', array( $this, 'update_discogs_user_url_option' ), 10, 3 );
 	}
 
 	/**
 	 * When personal access token is updated, use it to validate and retrieve a user Identity, then set the
-	 * discogs_identity option.
+	 * discogs_user_url option.
 	 *
 	 * @param string        $option    Name of the updated option.
 	 * @param object|string $old_value The old option value.
 	 * @param object|string $value     The new option value.
 	 */
-	public function update_discogs_identity_option( $option, $old_value, $value ) {
+	public function update_discogs_user_url_option( $option, $old_value, $value ) {
 		if( $option === 'discogs_access_token' ) {
 			$next_identity = '';
 
@@ -63,21 +62,23 @@ class OptionsPage {
 
 				$identity_response = wp_remote_get( $identity_endpoint );
 				if ( wp_remote_retrieve_response_code( $identity_response ) === 200 ) {
-					$next_identity = json_decode( wp_remote_retrieve_body( $identity_response ) );
+					$identity_response_body = json_decode( wp_remote_retrieve_body( $identity_response ) );
+					$next_identity = $identity_response_body->resource_url;
 				}
 			};
 
-			update_option( 'discogs_identity', $next_identity );
+			update_option( 'discogs_user_url', $next_identity );
+
 		}
 	}
 
 
 	/**
-	 * Gets Discogs User Profile from API, if user Identity is valid.
+	 * Gets Discogs User Profile from API.
 	 */
 	private function set_discogs_user() {
-		if( $this->_discogs_identity ) {
-			$user_response = wp_remote_get( $this->_discogs_identity->resource_url );
+		if( $this->_discogs_user_url ) {
+			$user_response = wp_remote_get( $this->_discogs_user_url );
 			$this->_discogs_user = json_decode( wp_remote_retrieve_body( $user_response ) );
 		}
 	}
@@ -170,38 +171,6 @@ class OptionsPage {
 			'<input type="text" id="%1$s" name="%1$s" value="%2$s" />',
 			'discogs_access_token',
 			isset( $this->_access_token ) ? esc_attr( $this->_access_token ) : '',
-		);
-	}
-
-	/**
-	 * Registers authentication options.
-	 */
-	public function register_authentication_settings() {
-		register_setting(
-			$this->_page_slug,
-			'discogs_access_token',
-			array(
-				'type'              => 'string',
-				'sanitize_callback' => array( $this, 'sanitize_token_field' ),
-				//'show_in_rest' => false,
-				//'label' => '',
-				//'description' => '',
-			)
-		);
-	}
-
-	/**
-	 * Removes non-alphabetical characters from user-entered personal access token.
-	 *
-	 * @param $input string User-entered personal access token.
-	 *
-	 * @return string Personal access token without non-alphabetical characters.
-	 */
-	public function sanitize_token_field( $input ) {
-		return preg_replace(
-			'/[^A-Za-z]/',
-			'',
-			$input
 		);
 	}
 }

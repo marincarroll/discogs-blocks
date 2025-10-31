@@ -35,6 +35,12 @@ require_once 'inc/register-block-types.php';
 add_action( 'init', 'Marincarroll\Discogs\register_block_types' );
 add_filter( 'block_categories_all', 'Marincarroll\Discogs\add_block_category' );
 
-// Creates settings and options page.
+// Creates options.
+require_once 'inc/options.php';
+add_action( 'admin_init', 'Marincarroll\Discogs\register_authentication_settings' );
+
+// Creates options page.
 require_once 'inc/class-options-page.php';
-add_action( 'init', function () { new OptionsPage(); } );
+add_action( 'init', function () {
+	new OptionsPage();
+} );
