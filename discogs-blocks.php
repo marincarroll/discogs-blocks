@@ -32,6 +32,4 @@ add_action( 'init', 'Marincarroll\Discogs\register_block_types' );
 
 // Creates settings and options page.
 require_once 'inc/class-options-page.php';
-if( is_admin() ) {
-	new OptionsPage();
-}
+add_action( 'init', function () { new OptionsPage(); } );

@@ -34,36 +34,48 @@ class OptionsPage {
 	private $_page_slug = 'marincarroll_discogs';
 
 	public function __construct() {
-		$this->_access_token = get_option( 'access_token', null );
+		$this->_access_token = get_option( 'discogs_access_token', '' );
+		$this->_discogs_identity = get_option( 'discogs_identity', '' );
 		$this->set_discogs_user();
 
 		add_action( 'admin_menu', array( $this, 'create_options_page' ) );
 		add_action( 'admin_menu', array( $this, 'add_authentication_settings_section' ) );
 		add_action( 'admin_init', array( $this, 'register_authentication_settings' ) );
+		add_action( 'updated_option', array( $this, 'update_discogs_identity_option' ), 10, 3 );
 	}
 
 	/**
-	 * Gets Discogs Identity from API to validate whether entered personal access token is associated with a user.
+	 * When personal access token is updated, use it to validate and retrieve a user Identity, then set the
+	 * discogs_identity option.
+	 *
+	 * @param string        $option    Name of the updated option.
+	 * @param object|string $old_value The old option value.
+	 * @param object|string $value     The new option value.
 	 */
-	private function set_discogs_identity() {
-		if ( $this->_access_token ) {
-			$identity_endpoint = add_query_arg( array(
-				'token' => $this->_access_token,
-			), 'https://api.discogs.com/oauth/identity' );
+	public function update_discogs_identity_option( $option, $old_value, $value ) {
+		if( $option === 'discogs_access_token' ) {
+			$next_identity = '';
 
-			$identity_response = wp_remote_get( $identity_endpoint );
-			if ( wp_remote_retrieve_response_code( $identity_response ) === 200 ) {
-				$this->_discogs_identity = json_decode( wp_remote_retrieve_body( $identity_response ) );
-			}
-		};
+			if ( $value ) {
+				$identity_endpoint = add_query_arg( array(
+					'token' => $value,
+				), 'https://api.discogs.com/oauth/identity' );
+
+				$identity_response = wp_remote_get( $identity_endpoint );
+				if ( wp_remote_retrieve_response_code( $identity_response ) === 200 ) {
+					$next_identity = json_decode( wp_remote_retrieve_body( $identity_response ) );
+				}
+			};
+
+			update_option( 'discogs_identity', $next_identity );
+		}
 	}
 
+
 	/**
-	 * Gets Discogs User Profile from API, if Identity is valid.
+	 * Gets Discogs User Profile from API, if user Identity is valid.
 	 */
 	private function set_discogs_user() {
-		$this->set_discogs_identity();
-
 		if( $this->_discogs_identity ) {
 			$user_response = wp_remote_get( $this->_discogs_identity->resource_url );
 			$this->_discogs_user = json_decode( wp_remote_retrieve_body( $user_response ) );
@@ -139,13 +151,13 @@ class OptionsPage {
 		);
 
 		add_settings_field(
-			'access_token',
+			'discogs_access_token',
 			__( 'Personal Access Token', 'discogs-blocks' ),
 			array( $this, 'render_token_field' ),
 			$this->_page_slug,
 			$this->_page_slug . '_authentication',
 			array(
-				'label_for' => 'access_token'
+				'label_for' => 'discogs_access_token'
 			)
 		);
 	}
@@ -156,7 +168,7 @@ class OptionsPage {
 	public function render_token_field() {
 		printf(
 			'<input type="text" id="%1$s" name="%1$s" value="%2$s" />',
-			'access_token',
+			'discogs_access_token',
 			isset( $this->_access_token ) ? esc_attr( $this->_access_token ) : '',
 		);
 	}
@@ -167,7 +179,7 @@ class OptionsPage {
 	public function register_authentication_settings() {
 		register_setting(
 			$this->_page_slug,
-			'access_token',
+			'discogs_access_token',
 			array(
 				'type'              => 'string',
 				'sanitize_callback' => array( $this, 'sanitize_token_field' ),
