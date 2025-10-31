@@ -34,42 +34,38 @@ class OptionsPage {
 	private $_page_slug = 'marincarroll_discogs';
 
 	public function __construct() {
-		$this->_access_token = get_option( 'discogs_access_token', '' );
-		$this->_discogs_user_url = get_option( 'discogs_user_url', '' );
+		$this->_access_token = get_option( 'discogs_access_token' );
+		$this->_discogs_user_url = get_option( 'discogs_user_url' );
 		$this->set_discogs_user();
 
 		add_action( 'admin_menu', array( $this, 'create_options_page' ) );
 		add_action( 'admin_menu', array( $this, 'add_authentication_settings_section' ) );
-		add_action( 'updated_option', array( $this, 'update_discogs_user_url_option' ), 10, 3 );
+		add_action( 'update_option_discogs_access_token', array( $this, 'update_discogs_user_url_option' ), 10, 3 );
 	}
 
 	/**
 	 * When personal access token is updated, use it to validate and retrieve a user Identity, then set the
 	 * discogs_user_url option.
 	 *
-	 * @param string        $option    Name of the updated option.
 	 * @param object|string $old_value The old option value.
 	 * @param object|string $value     The new option value.
 	 */
-	public function update_discogs_user_url_option( $option, $old_value, $value ) {
-		if( $option === 'discogs_access_token' ) {
-			$next_identity = '';
+	public function update_discogs_user_url_option( $old_value, $value ) {
+		$next_identity = '';
 
-			if ( $value ) {
-				$identity_endpoint = add_query_arg( array(
-					'token' => $value,
-				), DISCOGS_REST_ROUTE . '/oauth/identity' );
+		if ( $value ) {
+			$identity_endpoint = add_query_arg( array(
+				'token' => $value,
+			), DISCOGS_REST_ROUTE . '/oauth/identity' );
 
-				$identity_response = wp_remote_get( $identity_endpoint );
-				if ( wp_remote_retrieve_response_code( $identity_response ) === 200 ) {
-					$identity_response_body = json_decode( wp_remote_retrieve_body( $identity_response ) );
-					$next_identity = $identity_response_body->resource_url;
-				}
-			};
+			$identity_response = wp_remote_get( $identity_endpoint );
+			if ( wp_remote_retrieve_response_code( $identity_response ) === 200 ) {
+				$identity_response_body = json_decode( wp_remote_retrieve_body( $identity_response ) );
+				$next_identity = $identity_response_body->resource_url;
+			}
+		};
 
-			update_option( 'discogs_user_url', $next_identity );
-
-		}
+		update_option( 'discogs_user_url', $next_identity );
 	}
 
 
@@ -154,7 +150,7 @@ class OptionsPage {
 		add_settings_field(
 			'discogs_access_token',
 			__( 'Personal Access Token', 'discogs-blocks' ),
-			array( $this, 'render_token_field' ),
+			array( $this, 'render_discogs_token_field' ),
 			$this->_page_slug,
 			$this->_page_slug . '_authentication',
 			array(
@@ -166,7 +162,7 @@ class OptionsPage {
 	/**
 	 * Renders input field for the personal access token.
 	 */
-	public function render_token_field() {
+	public function render_discogs_token_field() {
 		printf(
 			'<input type="text" id="%1$s" name="%1$s" value="%2$s" />',
 			'discogs_access_token',

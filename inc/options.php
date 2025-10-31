@@ -3,23 +3,15 @@ namespace Marincarroll\Discogs;
 /**
  * Registers authentication options.
  */
-function register_authentication_settings() {
+function register_discogs_access_token_setting() {
 	register_setting(
 		'marincarroll_discogs',
 		'discogs_access_token',
 		array(
 			'sanitize_callback' => 'Marincarroll\Discogs\sanitize_discogs_token_field',
+			// 'default' => '' TODO: mysteriously breaks user url storage.
 		)
 	);
-
-	/*register_setting(
-		'marincarroll_discogs',
-		'discogs_user_url',
-		array(
-		//	'default' => '',
-			'sanitize_callback' => 'Marincarroll\Discogs\sanitize_discogs_user_url_field',
-		)
-	);*/
 }
 
 /**
@@ -37,11 +29,25 @@ function sanitize_discogs_token_field( $input ) {
 	);
 }
 
-function sanitize_discogs_user_url_field( $input ) {
-	return $input;
+function register_discogs_user_url_setting() {
+	register_setting(
+		'marincarroll_discogs',
+		'discogs_user_url',
+		array(
+			'type' => 'string',
+			'sanitize_callback' => 'Marincarroll\Discogs\sanitize_discogs_user_url_field',
+			'show_in_rest' => array(
+				'schema' => array(
+					'format' => 'uri',
+				),
+			),
+		)
+	);
+}
 
+function sanitize_discogs_user_url_field( $input ) {
 	if( $input ) {
-		//return esc_url( $input );
+		return esc_url( $input );
 	}
 }
 

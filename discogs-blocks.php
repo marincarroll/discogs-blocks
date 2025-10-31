@@ -37,7 +37,9 @@ add_filter( 'block_categories_all', 'Marincarroll\Discogs\add_block_category' );
 
 // Creates options.
 require_once 'inc/options.php';
-add_action( 'admin_init', 'Marincarroll\Discogs\register_authentication_settings' );
+add_action( 'admin_init', 'Marincarroll\Discogs\register_discogs_access_token_setting' );
+//add_action( 'admin_init', 'Marincarroll\Discogs\register_discogs_user_url_setting' );  TODO: mysteriously breaks user url storage.
+add_action( 'rest_api_init', 'Marincarroll\Discogs\register_discogs_user_url_setting' );
 
 // Creates options page.
 require_once 'inc/class-options-page.php';
