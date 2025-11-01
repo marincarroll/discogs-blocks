@@ -37,10 +37,6 @@ class OptionsPage {
 		$this->_access_token = get_option( 'discogs_access_token' );
 		$this->_discogs_user_url = get_option( 'discogs_user_url' );
 		$this->set_discogs_user();
-
-		add_action( 'admin_menu', array( $this, 'create_options_page' ) );
-		add_action( 'admin_menu', array( $this, 'add_authentication_settings_section' ) );
-		add_action( 'update_option_discogs_access_token', array( $this, 'update_discogs_user_url_option' ), 10, 3 );
 	}
 
 	/**
