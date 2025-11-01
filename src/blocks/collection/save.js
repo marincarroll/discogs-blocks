@@ -17,8 +17,14 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 export default function save() {
 	return (
-		<p { ...useBlockProps.save() }>
-			{ 'Todo List – hello from the saved content!' }
-		</p>
+		<section
+			{ ...useBlockProps.save( { className: 'discogs-collection' } ) }
+		>
+			{ [ ...Array( 20 ) ].map( ( e, i ) => (
+				<div className="discogs-collection__item" key={ i }>
+					<h2>placeholder</h2>
+				</div>
+			) ) }
+		</section>
 	);
 }

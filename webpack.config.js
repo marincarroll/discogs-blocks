@@ -7,17 +7,19 @@ const ENTRYPOINTS = [
 ];
 
 const getAdditionalEntries = () => {
-	return ENTRYPOINTS.reduce((accumulator, entrypoint)=> {
-		accumulator[entrypoint] = `./${getProjectSourcePath()}/${entrypoint}`;
+	return ENTRYPOINTS.reduce( ( accumulator, entrypoint ) => {
+		accumulator[
+			entrypoint
+		] = `./${ getProjectSourcePath() }/${ entrypoint }`;
 		return accumulator;
-	}, {})
-}
+	}, {} );
+};
 
 module.exports = {
 	...defaultConfig,
 	//context: path.resolve( __dirname, getProjectSourcePath() ),
 	entry: {
 		...defaultConfig.entry(),
-		...getAdditionalEntries()
-	}
+		...getAdditionalEntries(),
+	},
 };
