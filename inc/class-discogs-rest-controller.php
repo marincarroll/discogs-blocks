@@ -1,31 +1,30 @@
 <?php
 namespace Marincarroll\Discogs;
 
+use WP_REST_Controller, WP_REST_Server, WP_REST_Request, WP_REST_Response, WP_Error;
+
 class Discogs_REST_Controller extends WP_REST_Controller {
-	private $_version = 1;
-	private $namespace = 'marincarroll/v' . $version;
-	private $base = 'discogs';
+	protected $namespace = 'marincarroll/v1';
+
+	protected $rest_base = 'discogs';
+
+	// TODO add schema
+
 	/**
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
-		register_rest_route( $this->namespace, '/' . $this->base . '/folders/0/releases', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/folders/0/releases', array(
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_discogs_folder' ),
 				'permission_callback' => '__return_true',
 				'args'                => array(
-					'folder' => array(
-						'type' => 'number',
-						'default' => 0,
+					'token' => array(
+						'type' => 'string',
 					)
 				),
 			),
-		) );
-
-		register_rest_route( $namespace, '/' . $base . '/schema', array(
-			'methods'  => WP_REST_Server::READABLE,
-			'callback' => array( $this, 'get_public_item_schema' ),
 		) );
 	}
 
@@ -51,34 +50,7 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 		$params = $request->get_params();
 		$item = array();//do a query, call another class, etc
 		$data = $this->prepare_item_for_response( $item, $request );
-
-		//return a response or error based on some conditional
-		if ( 1 == 1 ) {
-			return new WP_REST_Response( $data, 200 );
-		} else {
-			return new WP_Error( 'code', __( 'message', 'text-domain' ) );
-		}
-	}
-
-	/**
-	 * Check if a given request has access to get items
-	 *
-	 * @param WP_REST_Request $request Full data about the request.
-	 * @return WP_Error|bool
-	 */
-	public function get_items_permissions_check( $request ) {
-		//return true; <--use to make readable by all
-		return current_user_can( 'edit_something' );
-	}
-
-	/**
-	 * Check if a given request has access to get a specific item
-	 *
-	 * @param WP_REST_Request $request Full data about the request.
-	 * @return WP_Error|bool
-	 */
-	public function get_item_permissions_check( $request ) {
-		return $this->get_items_permissions_check( $request );
+		return new WP_REST_Response( $data, 200 );
 	}
 
 	/**
