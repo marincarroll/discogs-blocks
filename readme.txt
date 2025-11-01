@@ -1,5 +1,5 @@
 === Todo List ===
-Contributors:      The WordPress Contributors
+Contributors:      Marin Carroll
 Tags:              block
 Tested up to:      6.7
 Stable tag:        0.1.0
