@@ -14,62 +14,51 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
-		register_rest_route( $this->namespace, '/' . $this->rest_base . '/folders(/*)(?P<folder>\d*)', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/collection', array(
 			array(
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_discogs_folder' ),
+				'callback'            => array( $this, 'get_discogs_collection' ),
+				'permission_callback' => '__return_true'
+			),
+		) );
+
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/wants', array(
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_discogs_wantlist' ),
 				'permission_callback' => '__return_true'
 			),
 		) );
 	}
 
-	/**
-	 * Get a collection of items
-	 *
-	 * @param WP_REST_Request $request Full data about the request.
-	 * @return WP_Error|WP_REST_Response
-	 */
-	public function get_discogs_folder( $request ) {
-		$folder = $request['folder'] ? $request['folder'] : 0;
-		$data = array( 'this will be a folder:' . $folder );
-		return new WP_REST_Response( $data, 200 );
+	static function build_discogs_rest_url( $path ) {
+		$url = get_option('discogs_user_url' );
+		$token = get_option( 'discogs_access_token' );
+
+		return add_query_arg( 'token', $token, $url . $path );
 	}
 
 	/**
-	 * Prepare the item for the REST response
+	 * TODO
 	 *
-	 * @param mixed $item WordPress representation of the item.
-	 * @param WP_REST_Request $request Request object.
-	 * @return mixed
+	 * @return WP_REST_Response
 	 */
-	public function prepare_item_for_response( $item, $request ) {
-		return array();
+	public function get_discogs_collection() {
+		$url = self::build_discogs_rest_url( '/collection/folders/0/releases' );
+		$discogs_response = wp_remote_get( $url );
+
+		return new WP_REST_Response( $discogs_response, 200 );
 	}
 
 	/**
-	 * Get the query params for collections
+	 * TODO
 	 *
-	 * @return array
+	 * @return WP_REST_Response
 	 */
-	public function get_collection_params() {
-		return array(
-			'page'     => array(
-				'description'       => 'Current page of the collection.',
-				'type'              => 'integer',
-				'default'           => 1,
-				'sanitize_callback' => 'absint',
-			),
-			'per_page' => array(
-				'description'       => 'Maximum number of items to be returned in result set.',
-				'type'              => 'integer',
-				'default'           => 10,
-				'sanitize_callback' => 'absint',
-			),
-			'search'   => array(
-				'description'       => 'Limit results to those matching a string.',
-				'type'              => 'string',
-				'sanitize_callback' => 'sanitize_text_field',
-			),
-		);
+	public function get_discogs_wantlist() {
+		$url = self::build_discogs_rest_url( '/wants' );
+		$discogs_response = wp_remote_get( $url );
+
+		return new WP_REST_Response( $discogs_response, 200 );
 	}
 }
