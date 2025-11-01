@@ -1,6 +1,9 @@
 .DS_Store
-/.idea
 /build
+
+# IntelliJ
+/.idea
+*.iml
 
 # Logs
 logs
@@ -32,8 +35,3 @@ node_modules/
 
 # dotenv environment variables file
 .env
-.idea/vcs.xml
-.idea/modules.xml
-.idea/misc.xml
-.idea/inspectionProfiles/Project_Default.xml
-/.idea
