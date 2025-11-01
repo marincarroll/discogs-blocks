@@ -14,16 +14,11 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
-		register_rest_route( $this->namespace, '/' . $this->rest_base . '/folders/0/releases', array(
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/folders(/*)(?P<folder>\d*)', array(
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_discogs_folder' ),
-				'permission_callback' => '__return_true',
-				'args'                => array(
-					'token' => array(
-						'type' => 'string',
-					)
-				),
+				'permission_callback' => '__return_true'
 			),
 		) );
 	}
@@ -35,21 +30,8 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_discogs_folder( $request ) {
-		$data = array( 'this will be a folder' );
-		return new WP_REST_Response( $data, 200 );
-	}
-
-	/**
-	 * Get one item from the collection
-	 *
-	 * @param WP_REST_Request $request Full data about the request.
-	 * @return WP_Error|WP_REST_Response
-	 */
-	public function get_item( $request ) {
-		//get parameters from request
-		$params = $request->get_params();
-		$item = array();//do a query, call another class, etc
-		$data = $this->prepare_item_for_response( $item, $request );
+		$folder = $request['folder'] ? $request['folder'] : 0;
+		$data = array( 'this will be a folder:' . $folder );
 		return new WP_REST_Response( $data, 200 );
 	}
 
