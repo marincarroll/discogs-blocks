@@ -1,4 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
+import { DiscogsItem } from './class-discogs-item';
 
 export class DiscogsCollection {
 	element: HTMLElement;
@@ -23,18 +24,14 @@ export class DiscogsCollection {
 
 	loadItems() {
 		const releases = this.collectionData.releases;
-
+		console.log( releases );
 		this.items.forEach( ( item, index ) => {
 			const release = releases[ index ];
 			if ( release ) {
-				this.loadItem( item, release );
+				new DiscogsItem( item, release.basic_information );
 			} else {
 				item.remove();
 			}
 		} );
-	}
-
-	loadItem( item, data ) {
-		item.querySelector( 'h2' ).innerText = data.basic_information.title;
 	}
 }

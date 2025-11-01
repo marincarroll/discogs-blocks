@@ -9,10 +9,20 @@
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"supports": {
-		"html": false
+		"html": false,
+		"align": [ "wide", "full" ],
+		"layout": {
+			"default": {
+				"type": "grid"
+			}
+		},
+		"spacing": {
+			"blockGap": true
+		}
 	},
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
 	"style": "file:./style-index.css",
-	"viewScript": "file:./view.js"
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
 }

@@ -37,7 +37,7 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 
 		return add_query_arg( array(
 			'token'    => $token,
-			'per_page' => 20,
+			'per_page' => 21,
 		), $url . $path );
 	}
 

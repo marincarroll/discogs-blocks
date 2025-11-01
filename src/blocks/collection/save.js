@@ -20,9 +20,11 @@ export default function save() {
 		<section
 			{ ...useBlockProps.save( { className: 'discogs-collection' } ) }
 		>
-			{ [ ...Array( 20 ) ].map( ( e, i ) => (
+			{ [ ...Array( 21 ) ].map( ( e, i ) => (
 				<div className="discogs-collection__item" key={ i }>
-					<h2>placeholder</h2>
+					<div className="discogs-collection__image" />
+					<h2 className="discogs-collection__title"></h2>
+					<h3 className="discogs-collectio__artist"></h3>
 				</div>
 			) ) }
 		</section>
