@@ -1,0 +1,34 @@
+.discogs-release {
+	--placeholder-color: rgb(240, 240, 240);
+}
+
+.discogs-collection__image {
+	aspect-ratio: 1;
+	background: var(--placeholder-color);
+}
+
+.discogs-collection__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.discogs-release-template {
+	display: grid;
+}
+
+.discogs-release.placeholder .discogs-collection__title,
+.discogs-release.placeholder .discogs-collection__artists,
+.discogs-release.placeholder .discogs-collection__details {
+	background: var(--placeholder-color);
+}
+
+.discogs-release.placeholder .discogs-collection__title,
+.discogs-release .discogs-collection__artists {
+	min-height: 1em;
+}
+
+.discogs-release.placeholder .discogs-collection__details {
+	min-height: 4em;
+}

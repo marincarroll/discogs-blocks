@@ -20,11 +20,7 @@ export default function Edit( {
 		{},
 		{
 			template: [
-				[ 'core/image' ],
-				[ 'core/heading' ],
-				[ 'core/heading' ],
-				[ 'core/paragraph' ],
-				[ 'core/paragraph' ],
+				[ 'marincarroll-discogs/release-title' ],
 			],
 		}
 	);

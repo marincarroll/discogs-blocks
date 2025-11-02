@@ -1,28 +1,23 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "marincarroll-discogs/collection",
+	"name": "marincarroll-discogs/release-title",
 	"version": "0.1.0",
-	"title": "Collection",
+	"title": "Release Title",
 	"category": "widgets",
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
+	"ancestor": [ "marincarroll-discogs/release" ],
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full", "center" ]
-	},
-	"attributes": {
-		"perPage": {
-			"type": "integer",
-			"default": 20
+		"typography": {
+			"fontSize": true,
+			"textAlign": true,
+			"lineHeight": true
 		}
-	},
-	"providesContext": {
-		"marincarroll-discogs/perPage": "perPage"
 	},
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
-	"viewScript": "file:./view.js",
 	"render": "file:./render.php"
 }

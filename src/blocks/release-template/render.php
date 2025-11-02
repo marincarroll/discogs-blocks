@@ -8,7 +8,7 @@ use WP_Block;
  */
 
 $item_wrapper_attributes = get_block_wrapper_attributes( array(
-	'class' => 'discogs-collection__item',
+	'class' => 'discogs-release',
 ) );
 
 $item = sprintf(
@@ -18,6 +18,6 @@ $item = sprintf(
 );
 
 printf(
-	'<ul class="discogs-collection__item-template">%s</ul>',
+	'<ul class="discogs-release-template">%s</ul>',
 	str_repeat( $item, $block->context['marincarroll-discogs/perPage'] )
 );

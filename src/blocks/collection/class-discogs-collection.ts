@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { DiscogsItem } from './class-discogs-item';
+import { DiscogsRelease } from '../release-template/class-discogs-release';
 
 export class DiscogsCollection {
 	element: HTMLElement;
@@ -8,7 +8,7 @@ export class DiscogsCollection {
 
 	constructor( element ) {
 		this.element = element;
-		this.items = element.querySelectorAll( '.discogs-collection__item' );
+		this.items = element.querySelectorAll( '.discogs-release' );
 
 		this.fetchCollections();
 	}
@@ -28,7 +28,7 @@ export class DiscogsCollection {
 		this.items.forEach( ( item, index ) => {
 			const release = releases[ index ];
 			if ( release ) {
-				new DiscogsItem( item, release.basic_information );
+				new DiscogsRelease( item, release.basic_information );
 			} else {
 				item.remove();
 			}

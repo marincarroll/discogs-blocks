@@ -1,4 +1,4 @@
-export class DiscogsItem {
+export class DiscogsRelease {
 	element;
 	link;
 	data;
@@ -20,7 +20,7 @@ export class DiscogsItem {
 			'.discogs-collection__artists'
 		);
 		this.titleHeading = element.querySelector(
-			'.discogs-collection__title'
+			'.discogs-release__title'
 		);
 
 		this.load();
@@ -28,11 +28,11 @@ export class DiscogsItem {
 
 	load() {
 		this.titleHeading.innerText = this.data.title;
-		this.loadArtists();
-		this.loadDetails();
+		//this.loadArtists();
+		//this.loadDetails();
 		this.element.classList.remove( 'placeholder' );
 
-		this.appendImage();
+		//this.appendImage();
 	}
 
 	loadDetails() {

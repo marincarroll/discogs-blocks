@@ -1,25 +1,21 @@
 import { __ } from '@wordpress/i18n';
 import {
-	InnerBlocks,
 	InspectorControls,
 	useBlockProps,
 	useInnerBlocksProps,
-	store as blockEditorStore,
-	BlockPreview,
 } from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 
 export default function Edit( {
 	attributes: { perPage },
 	setAttributes,
-	clientId,
 } ) {
 	const blockProps = useBlockProps( {
-		className: 'discogs-collection__item',
+		className: 'discogs-collection',
 	} );
+
 	const innerBlocksProps = useInnerBlocksProps(
-		{},
+		blockProps,
 		{
 			allowedBlocks: [ 'marincarroll-discogs/release-template' ],
 			templateLock: 'all',
