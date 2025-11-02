@@ -11,9 +11,6 @@
 	"parent": [ "marincarroll-discogs/collection" ],
 	"supports": {
 		"html": false,
-		"spacing": {
-			"blockGap": true
-		},
 		"className": false
 	},
 	"usesContext": [ "marincarroll-discogs/perPage" ],

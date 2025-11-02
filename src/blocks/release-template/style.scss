@@ -1,5 +1,9 @@
 .discogs-release-template {
+	list-style-type: none;
 	display: grid;
+	grid-template-columns: repeat(auto-fill, clamp(200px,calc(33.33% - 1rem), 400px));
+	gap: 1rem;
+	justify-content: center;
 }
 
 .discogs-release {
@@ -20,8 +24,8 @@
 
 .discogs-release.placeholder .discogs-release__title,
 .discogs-release.placeholder .discogs-release__artists,
-.discogs-release.placeholder .discogs-collection__year,
-.discogs-release.placeholder .discogs-collection__formats {
+.discogs-release.placeholder .discogs-release__year,
+.discogs-release.placeholder .discogs-release__formats {
 	background: var(--placeholder-color);
 	min-height: 1em;
 }
