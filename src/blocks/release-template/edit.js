@@ -20,6 +20,7 @@ export default function Edit( {
 		{},
 		{
 			template: [
+				[ 'core/image' ],
 				[ 'core/heading' ],
 				[ 'core/heading' ],
 				[ 'core/paragraph' ],
@@ -28,7 +29,6 @@ export default function Edit( {
 		}
 	);
 
-	// TODO how to make performant??
 	const innerBlocksData = useSelect(
 		( select ) => {
 			const { getBlocks } = select( blockEditorStore );

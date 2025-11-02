@@ -21,9 +21,9 @@ export default function Edit( {
 	const innerBlocksProps = useInnerBlocksProps(
 		{},
 		{
-			allowedBlocks: [ 'marincarroll-discogs/collection-item-template' ],
+			allowedBlocks: [ 'marincarroll-discogs/release-template' ],
 			templateLock: 'all',
-			template: [ [ 'marincarroll-discogs/collection-item-template' ] ],
+			template: [ [ 'marincarroll-discogs/release-template' ] ],
 		}
 	);
 
