@@ -20,7 +20,12 @@ export default function Edit( {
 	const innerBlocksProps = useInnerBlocksProps(
 		{},
 		{
-			template: [ [ 'marincarroll-discogs/release-title' ] ],
+			template: [
+				[ 'marincarroll-discogs/release-title' ],
+				[ 'marincarroll-discogs/release-artists' ],
+				[ 'marincarroll-discogs/release-year' ],
+				[ 'marincarroll-discogs/release-formats' ],
+			],
 		}
 	);
 

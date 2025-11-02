@@ -2,51 +2,42 @@ export class DiscogsRelease {
 	element;
 	link;
 	data;
-	artistHeading;
+	artistsHeading;
 	titleHeading;
 	imageWrapper;
-	detailsWrapper;
+	formatsText;
+	yearText;
 
 	constructor( element, data ) {
 		this.element = element;
 		this.data = data;
-		this.imageWrapper = element.querySelector(
+		/*this.imageWrapper = element.querySelector(
 			'.discogs-collection__image'
-		);
-		this.detailsWrapper = element.querySelector(
-			'.discogs-collection__details'
-		);
-		this.artistHeading = element.querySelector(
-			'.discogs-collection__artists'
-		);
+		);*/
+		this.artistsHeading = element.querySelector( '.discogs-release__artists' );
 		this.titleHeading = element.querySelector( '.discogs-release__title' );
-
+		this.formatsText = element.querySelector('.discogs-release__formats');
+		this.yearText = element.querySelector('.discogs-release__year');
+		
 		this.load();
 	}
 
 	load() {
 		this.titleHeading.innerText = this.data.title;
-		//this.loadArtists();
-		//this.loadDetails();
+		this.yearText.innerText = this.data.year;
+		this.loadArtists();
+		this.loadFormats();
+
 		this.element.classList.remove( 'placeholder' );
 
 		//this.appendImage();
 	}
 
-	loadDetails() {
-		const yearText = document.createElement( 'p' );
-		yearText.innerText = this.data.year;
-		this.detailsWrapper.append( yearText );
-
-		const styleText = document.createElement( 'p' );
-		styleText.innerText = this.data.styles.join( ', ' );
-		this.detailsWrapper.append( styleText );
-
-		const formatText = document.createElement( 'p' );
+	loadFormats() {
 		const formats = new Set(
 			this.data.formats.map( ( format ) => format.name )
 		);
-		formatText.innerText = Array.from( formats ).join( ',' );
+		this.formatsText.innerText = Array.from( formats ).join( ', ' );
 	}
 
 	loadArtists() {
@@ -54,7 +45,7 @@ export class DiscogsRelease {
 		const artistNames = new Set(
 			this.data.artists.map( ( artist ) => artist.name )
 		);
-		this.artistHeading.innerText = Array.from( artistNames ).join( ',' );
+		this.artistsHeading.innerText = Array.from( artistNames ).join( ',' );
 	}
 
 	appendImage() {

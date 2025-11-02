@@ -8,7 +8,7 @@ use WP_Block;
  */
 
 $wrapper_attributes = get_block_wrapper_attributes( array(
-	'class' => 'discogs-release__artist',
+	'class' => 'discogs-release__artists',
 ) );
 
 printf(
