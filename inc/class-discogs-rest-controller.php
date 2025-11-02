@@ -16,9 +16,25 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	public function register_routes() {
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/collection', array(
 			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_discogs_collection' ),
-				'permission_callback' => '__return_true'
+				'methods' => WP_REST_Server::READABLE,
+				'callback' => array( $this, 'get_discogs_collection' ),
+				'permission_callback' => '__return_true',
+				'args' => array(
+					'perPage' => array(
+						'type' => 'integer',
+						'required' => true,
+						'validate_callback' => function( $param ) {
+							return is_numeric( $param );
+						}
+					),
+					'page' => array(
+						'type' => 'integer',
+						'required' => true,
+						'validate_callback' => function( $param ) {
+							return is_numeric( $param );
+						}
+					)
+				),
 			),
 		) );
 
@@ -31,13 +47,14 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 		) );
 	}
 
-	static function build_discogs_rest_url( $path ) {
+	static function build_discogs_rest_url( $path, $per_page, $page ) {
 		$url = get_option('discogs_user_url' );
 		$token = get_option( 'discogs_access_token' );
 
 		return add_query_arg( array(
 			'token'    => $token,
-			'per_page' => 21,
+			'per_page' => $per_page,
+			'page'     => $page,
 		), $url . $path );
 	}
 
@@ -46,8 +63,13 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function get_discogs_collection() {
-		$url = self::build_discogs_rest_url( '/collection/folders/0/releases' );
+	public function get_discogs_collection( $request ) {
+		$params = $request->get_params();
+		$url = self::build_discogs_rest_url(
+			'/collection/folders/0/releases',
+			$params['perPage'],
+			$params['page'],
+		);
 		$discogs_response = wp_remote_get( $url );
 		$discogs_response_body = wp_remote_retrieve_body( $discogs_response );
 

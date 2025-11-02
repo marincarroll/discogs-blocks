@@ -3,15 +3,14 @@ export class DiscogsRelease {
 	link;
 	data;
 	cover;
+	coverImage;
 	artistsHeading;
 	titleHeading;
-	imageWrapper;
 	formatsText;
 	yearText;
 
-	constructor( element, data ) {
+	constructor( element ) {
 		this.element = element;
-		this.data = data;
 		this.cover = element.querySelector( '.discogs-release__cover' );
 		this.artistsHeading = element.querySelector(
 			'.discogs-release__artists'
@@ -19,39 +18,40 @@ export class DiscogsRelease {
 		this.titleHeading = element.querySelector( '.discogs-release__title' );
 		this.formatsText = element.querySelector( '.discogs-release__formats' );
 		this.yearText = element.querySelector( '.discogs-release__year' );
-
-		this.load();
 	}
 
-	load() {
-		this.titleHeading.innerText = this.data.title;
-		this.yearText.innerText = this.data.year;
-		this.loadArtists();
-		this.loadFormats();
+	load( data ) {
+		console.log(data);
+		this.titleHeading.innerText = data.title;
+		this.yearText.innerText = data.year;
+		this.loadArtists(data.artists);
+		this.loadFormats(data.formats);
 
 		this.element.classList.remove( 'placeholder' );
 
-		this.appendCover();
+		this.loadCover(data.cover_image);
 	}
 
-	loadFormats() {
-		const formats = new Set(
-			this.data.formats.map( ( format ) => format.name )
+	loadFormats(formats) {
+		const formatNames = new Set(
+			formats.map( ( format ) => format.name )
 		);
-		this.formatsText.innerText = Array.from( formats ).join( ', ' );
+		this.formatsText.innerText = Array.from( formatNames ).join( ', ' );
 	}
 
-	loadArtists() {
+	loadArtists(artists) {
 		// Avoids duplicate artists
 		const artistNames = new Set(
-			this.data.artists.map( ( artist ) => artist.name )
+			artists.map( ( artist ) => artist.name )
 		);
 		this.artistsHeading.innerText = Array.from( artistNames ).join( ',' );
 	}
 
-	appendCover() {
-		const image = document.createElement( 'img' );
-		image.src = this.data.cover_image;
-		this.cover.append( image );
+	loadCover( coverImageSrc ) {
+		if( ! this.cover.hasChildNodes() ) {
+			this.coverImage = document.createElement( 'img' );
+			this.cover.append( this.coverImage );
+		}
+		this.coverImage.src = coverImageSrc;
 	}
 }
