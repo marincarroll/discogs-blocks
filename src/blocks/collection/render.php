@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var array $attributes
+ */
 namespace Marincarroll\Discogs;
 
 $block_wrapper_attributes = get_block_wrapper_attributes( array(
@@ -15,5 +18,5 @@ $placeholder_item = '<div class="discogs-collection__item placeholder">
 printf(
 	'<div %s>%s</div>',
 	$block_wrapper_attributes,
-	str_repeat( $placeholder_item, 21 )
+	str_repeat( $placeholder_item, $attributes['perPage'] )
 );
