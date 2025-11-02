@@ -1,9 +1,9 @@
 <?php
+namespace Marincarroll\Discogs;
 /**
  * @var array $attributes
  * @var string $content
  */
-namespace Marincarroll\Discogs;
 
 $block_wrapper_attributes = get_block_wrapper_attributes( array(
 	'class' => 'discogs-collection',
@@ -12,5 +12,5 @@ $block_wrapper_attributes = get_block_wrapper_attributes( array(
 printf(
 	'<div %s>%s</div>',
 	$block_wrapper_attributes,
-	$content
+	$content,
 );

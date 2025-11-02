@@ -14,6 +14,10 @@
 	display: block;
 }
 
+.discogs-collection__item-template {
+	display: grid;
+}
+
 .discogs-collection__item.placeholder .discogs-collection__title,
 .discogs-collection__item.placeholder .discogs-collection__artists,
 .discogs-collection__item.placeholder .discogs-collection__details {

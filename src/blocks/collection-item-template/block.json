@@ -8,10 +8,14 @@
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
-	"parent": ["marincarroll-discogs/collection"],
+	"parent": [ "marincarroll-discogs/collection" ],
 	"supports": {
-		"html": false
+		"html": false,
+		"spacing": {
+			"blockGap": true
+		}
 	},
+	"usesContext": [ "marincarroll-discogs/perPage" ],
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php"

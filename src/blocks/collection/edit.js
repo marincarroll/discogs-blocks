@@ -1,14 +1,32 @@
 import { __ } from '@wordpress/i18n';
-import {InnerBlocks, InspectorControls, useBlockProps, useInnerBlocksProps} from '@wordpress/block-editor';
+import {
+	InnerBlocks,
+	InspectorControls,
+	useBlockProps,
+	useInnerBlocksProps,
+	store as blockEditorStore,
+	BlockPreview,
+} from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 
-export default function Edit( { attributes: { perPage }, setAttributes } ) {
-	const blockProps = useBlockProps( { className: 'discogs-collection__item' } );
-	const innerBlocksProps = useInnerBlocksProps({}, {
-		allowedBlocks: ['marincarroll-discogs/collection-item-template'],
-		templateLock: 'all',
-		template: [['marincarroll-discogs/collection-item-template'],['core/heading']]
-	});
+export default function Edit( {
+	attributes: { perPage },
+	setAttributes,
+	clientId,
+} ) {
+	const blockProps = useBlockProps( {
+		className: 'discogs-collection__item',
+	} );
+	const innerBlocksProps = useInnerBlocksProps(
+		{},
+		{
+			allowedBlocks: [ 'marincarroll-discogs/collection-item-template' ],
+			templateLock: 'all',
+			template: [ [ 'marincarroll-discogs/collection-item-template' ] ],
+		}
+	);
+
 	return (
 		<>
 			<InspectorControls>
@@ -24,8 +42,7 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<section { ...innerBlocksProps }/>
+			<section { ...innerBlocksProps } />
 		</>
-
 	);
 }

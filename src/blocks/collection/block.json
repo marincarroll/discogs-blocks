@@ -10,16 +10,16 @@
 	"example": {},
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full", "center" ],
-		"spacing": {
-			"blockGap": true
-		}
+		"align": [ "wide", "full", "center" ]
 	},
 	"attributes": {
 		"perPage": {
 			"type": "integer",
 			"default": 20
 		}
+	},
+	"providesContext": {
+		"marincarroll-discogs/perPage": "perPage"
 	},
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",

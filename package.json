@@ -18,6 +18,7 @@
 		"@wordpress/api-fetch": "^7.34.0",
 		"@wordpress/block-editor": "^15.7.0",
 		"@wordpress/components": "^30.7.0",
+		"@wordpress/data": "^10.34.0",
 		"@wordpress/i18n": "^6.7.0",
 		"@wordpress/scripts": "^30.27.0"
 	}
