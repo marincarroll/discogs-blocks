@@ -1,13 +1,12 @@
-import { __ } from '@wordpress/i18n';
 import {
 	useBlockProps,
 	useInnerBlocksProps,
 	store as blockEditorStore,
-	BlockPreview,
+	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
 	__experimentalUseBlockPreview as useBlockPreview,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { useMemo, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 export default function Edit( {
 	clientId,
@@ -40,13 +39,12 @@ export default function Edit( {
 		[ clientId ]
 	);
 
-	const blockPreviewProps = useBlockPreview({
-			blocks: innerBlocksData,
-			props: {
-				className: 'discogs-release',
-			}
+	const blockPreviewProps = useBlockPreview( {
+		blocks: innerBlocksData,
+		props: {
+			className: 'discogs-release',
 		},
-	);
+	} );
 
 	const [ selectedIndex, setSelectedIndex ] = useState( 0 );
 

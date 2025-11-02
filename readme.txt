@@ -1,29 +1,24 @@
-=== Todo List ===
+=== Discogs Blocks ===
 Contributors:      Marin Carroll
 Tags:              block
-Tested up to:      6.7
+Tested up to:      6.8.3
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Example block scaffolded with Create Block tool.
+WordPress plugin to display a user's collection from Discogs.com
 
 == Description ==
+Uses the Discogs.com API to display a user's collection in a block, inspired by core/query and core/post-template.
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+This is a WIP and is not yet tested or released, but please feel free to download and open an issue if you have a bug report or feature request.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload the plugin files to the `/wp-content/plugins/todo-list` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
+1. Upload the plugin files to the `/wp-content/plugins/discogs-blocks` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Enter your Discogs.com personal access token through the 'Settings > Discogs Blocks' screen in WordPress
+4. Insert a "Collection" block via the block editor
 
 == Frequently Asked Questions ==
 

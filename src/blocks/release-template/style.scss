@@ -1,7 +1,7 @@
 .discogs-release-template {
 	list-style-type: none;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, clamp(200px,calc(33.33% - 1rem), 400px));
+	grid-template-columns: repeat(auto-fill, clamp(200px, calc(33.33% - 1rem), 400px));
 	gap: 1rem;
 	justify-content: center;
 }

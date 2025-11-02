@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Discogs Blocks
- * Description:       Example block scaffolded with Create Block tool.
+ * Description:       Displays a user's collection from Discogs.com.
  * Version:           0.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4

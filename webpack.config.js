@@ -1,4 +1,4 @@
-const path = require( 'path' );
+//npmconst path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const { getProjectSourcePath } = require( '@wordpress/scripts/utils' );
 

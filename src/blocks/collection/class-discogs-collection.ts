@@ -24,7 +24,7 @@ export class DiscogsCollection {
 
 	loadItems() {
 		const releases = this.collectionData.releases;
-		console.log( releases );
+
 		this.items.forEach( ( item, index ) => {
 			const release = releases[ index ];
 			if ( release ) {
