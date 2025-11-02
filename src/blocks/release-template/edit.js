@@ -54,7 +54,7 @@ export default function Edit( {
 		<ul { ...blockProps }>
 			{ [ ...Array( perPage ) ].map( ( item, index ) => {
 				if ( index === selectedIndex ) {
-					return <li { ...innerBlocksProps } key={ index } />;
+					return <li { ...innerBlocksProps } key="selected" />;
 				}
 				return (
 					<li
