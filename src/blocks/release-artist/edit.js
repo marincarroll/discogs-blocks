@@ -2,8 +2,8 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 export default function Edit() {
 	const blockProps = useBlockProps( {
-		className: 'discogs-release__title',
+		className: 'discogs-release__artist',
 	} );
 
-	return <h2 { ...blockProps }>Release Title</h2>;
+	return <h3 { ...blockProps }>Release Artist</h3>;
 }

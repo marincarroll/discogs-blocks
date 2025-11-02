@@ -6,22 +6,16 @@ import {
 } from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
 
-export default function Edit( {
-	attributes: { perPage },
-	setAttributes,
-} ) {
+export default function Edit( { attributes: { perPage }, setAttributes } ) {
 	const blockProps = useBlockProps( {
 		className: 'discogs-collection',
 	} );
 
-	const innerBlocksProps = useInnerBlocksProps(
-		blockProps,
-		{
-			allowedBlocks: [ 'marincarroll-discogs/release-template' ],
-			templateLock: 'all',
-			template: [ [ 'marincarroll-discogs/release-template' ] ],
-		}
-	);
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		allowedBlocks: [ 'marincarroll-discogs/release-template' ],
+		templateLock: 'all',
+		template: [ [ 'marincarroll-discogs/release-template' ] ],
+	} );
 
 	return (
 		<>

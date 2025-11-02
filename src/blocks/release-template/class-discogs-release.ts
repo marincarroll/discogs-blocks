@@ -19,9 +19,7 @@ export class DiscogsRelease {
 		this.artistHeading = element.querySelector(
 			'.discogs-collection__artists'
 		);
-		this.titleHeading = element.querySelector(
-			'.discogs-release__title'
-		);
+		this.titleHeading = element.querySelector( '.discogs-release__title' );
 
 		this.load();
 	}

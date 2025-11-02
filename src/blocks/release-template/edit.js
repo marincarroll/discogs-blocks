@@ -14,14 +14,13 @@ export default function Edit( {
 	context: { 'marincarroll-discogs/perPage': perPage },
 } ) {
 	const blockProps = useBlockProps( {
-		className: 'discogs-collection__item-template',
+		className: 'discogs-release-template',
 	} );
+
 	const innerBlocksProps = useInnerBlocksProps(
 		{},
 		{
-			template: [
-				[ 'marincarroll-discogs/release-title' ],
-			],
+			template: [ [ 'marincarroll-discogs/release-title' ] ],
 		}
 	);
 
@@ -36,7 +35,7 @@ export default function Edit( {
 	const blockPreviewProps = useBlockPreview(
 		{ blocks: innerBlocksData },
 		{
-			className: 'discogs-collection__item',
+			className: 'discogs-release',
 		}
 	);
 
