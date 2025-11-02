@@ -21,6 +21,7 @@ export default function Edit( {
 		{},
 		{
 			template: [
+				[ 'marincarroll-discogs/release-cover' ],
 				[ 'marincarroll-discogs/release-title' ],
 				[ 'marincarroll-discogs/release-artists' ],
 				[ 'marincarroll-discogs/release-year' ],
@@ -50,7 +51,7 @@ export default function Edit( {
 		<ul { ...blockProps }>
 			{ [ ...Array( perPage ) ].map( ( item, index ) => {
 				if ( index === selectedIndex ) {
-					return <li { ...innerBlocksProps } />;
+					return <li { ...innerBlocksProps } key={ index } />;
 				}
 				return (
 					<li

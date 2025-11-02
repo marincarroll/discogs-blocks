@@ -2,6 +2,7 @@ export class DiscogsRelease {
 	element;
 	link;
 	data;
+	cover;
 	artistsHeading;
 	titleHeading;
 	imageWrapper;
@@ -11,14 +12,14 @@ export class DiscogsRelease {
 	constructor( element, data ) {
 		this.element = element;
 		this.data = data;
-		/*this.imageWrapper = element.querySelector(
-			'.discogs-collection__image'
-		);*/
-		this.artistsHeading = element.querySelector( '.discogs-release__artists' );
+		this.cover = element.querySelector( '.discogs-release__cover' );
+		this.artistsHeading = element.querySelector(
+			'.discogs-release__artists'
+		);
 		this.titleHeading = element.querySelector( '.discogs-release__title' );
-		this.formatsText = element.querySelector('.discogs-release__formats');
-		this.yearText = element.querySelector('.discogs-release__year');
-		
+		this.formatsText = element.querySelector( '.discogs-release__formats' );
+		this.yearText = element.querySelector( '.discogs-release__year' );
+
 		this.load();
 	}
 
@@ -30,7 +31,7 @@ export class DiscogsRelease {
 
 		this.element.classList.remove( 'placeholder' );
 
-		//this.appendImage();
+		this.appendCover();
 	}
 
 	loadFormats() {
@@ -48,9 +49,9 @@ export class DiscogsRelease {
 		this.artistsHeading.innerText = Array.from( artistNames ).join( ',' );
 	}
 
-	appendImage() {
+	appendCover() {
 		const image = document.createElement( 'img' );
 		image.src = this.data.cover_image;
-		this.imageWrapper.append( image );
+		this.cover.append( image );
 	}
 }

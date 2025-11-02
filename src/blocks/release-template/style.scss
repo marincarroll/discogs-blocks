@@ -1,34 +1,28 @@
+.discogs-release-template {
+	display: grid;
+}
+
 .discogs-release {
 	--placeholder-color: rgb(240, 240, 240);
 }
 
-.discogs-collection__image {
+.discogs-release__cover {
 	aspect-ratio: 1;
 	background: var(--placeholder-color);
 }
 
-.discogs-collection__image img {
+.discogs-release__cover img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	display: block;
 }
 
-.discogs-release-template {
-	display: grid;
-}
-
-.discogs-release.placeholder .discogs-collection__title,
-.discogs-release.placeholder .discogs-collection__artists,
-.discogs-release.placeholder .discogs-collection__details {
+.discogs-release.placeholder .discogs-release__title,
+.discogs-release.placeholder .discogs-release__artists,
+.discogs-release.placeholder .discogs-collection__year,
+.discogs-release.placeholder .discogs-collection__formats {
 	background: var(--placeholder-color);
-}
-
-.discogs-release.placeholder .discogs-collection__title,
-.discogs-release .discogs-collection__artists {
 	min-height: 1em;
 }
 
-.discogs-release.placeholder .discogs-collection__details {
-	min-height: 4em;
-}
