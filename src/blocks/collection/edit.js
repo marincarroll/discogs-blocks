@@ -1,10 +1,16 @@
 import { __ } from '@wordpress/i18n';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import {InnerBlocks, InspectorControls, useBlockProps, useInnerBlocksProps} from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
 
 export default function Edit( { attributes: { perPage }, setAttributes } ) {
+	const blockProps = useBlockProps( { className: 'discogs-collection__item' } );
+	const innerBlocksProps = useInnerBlocksProps({}, {
+		allowedBlocks: ['marincarroll-discogs/collection-item-template'],
+		templateLock: 'all',
+		template: [['marincarroll-discogs/collection-item-template'],['core/heading']]
+	});
 	return (
-		<section { ...useBlockProps( { className: 'discogs-collection' } ) }>
+		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Display', 'discogs-blocks' ) }>
 					<RangeControl
@@ -18,14 +24,8 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ [ ...Array( perPage ) ].map( ( e, i ) => (
-				<div className="discogs-collection__item placeholder" key={ i }>
-					<div className="discogs-collection__image"></div>
-					<h2 className="discogs-collection__title"></h2>
-					<h3 className="discogs-collection__artists"></h3>
-					<div className="discogs-collection__details"></div>
-				</div>
-			) ) }
-		</section>
+			<section { ...innerBlocksProps }/>
+		</>
+
 	);
 }
