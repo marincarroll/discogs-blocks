@@ -18,7 +18,9 @@ export default function Edit( {
 	} );
 
 	const innerBlocksProps = useInnerBlocksProps(
-		{},
+		{
+			className: 'discogs-release',
+		},
 		{
 			template: [
 				[ 'marincarroll-discogs/release-cover' ],
@@ -38,11 +40,12 @@ export default function Edit( {
 		[ clientId ]
 	);
 
-	const blockPreviewProps = useBlockPreview(
-		{ blocks: innerBlocksData },
-		{
-			className: 'discogs-release',
-		}
+	const blockPreviewProps = useBlockPreview({
+			blocks: innerBlocksData,
+			props: {
+				className: 'discogs-release',
+			}
+		},
 	);
 
 	const [ selectedIndex, setSelectedIndex ] = useState( 0 );
