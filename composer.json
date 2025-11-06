@@ -1,0 +1,13 @@
+{
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+	"scripts": {
+		"phpcs": "phpcs --standard=WordPress ./inc;  phpcs --standard=WordPress ./discogs-blocks.php"
+	}
+}

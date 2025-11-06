@@ -1,8 +1,12 @@
 <?php
-namespace Marincarroll\Discogs;
 /**
- * Registers authentication options.
+ * Registers and handles authentication-related options.
+ *
+ * @package Marincarroll\Discogs
  */
+
+namespace Marincarroll\Discogs;
+
 function register_discogs_access_token_setting() {
 	register_setting(
 		'marincarroll_discogs',

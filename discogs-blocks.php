@@ -12,6 +12,7 @@
  *
  * @package Marincarroll\Discogs
  */
+
 namespace Marincarroll\Discogs;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,7 +45,7 @@ add_action( 'rest_api_init', 'Marincarroll\Discogs\register_discogs_user_url_set
 // Creates options page.
 require_once 'inc/class-options-page.php';
 
-$options_page = new OptionsPage();
+$options_page = new Options_Page();
 
 add_action( 'admin_menu', array( $options_page, 'create_options_page' ) );
 add_action( 'admin_menu', array( $options_page, 'add_authentication_settings_section' ) );

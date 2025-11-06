@@ -1,4 +1,5 @@
 <?php
+
 namespace Marincarroll\Discogs;
 
 /**
@@ -11,7 +12,7 @@ namespace Marincarroll\Discogs;
  */
 function register_block_types() {
 	$blocks_dir = BUILD_DIR . '/blocks';
-	$manifest = BUILD_DIR . '/blocks-manifest.php';
+	$manifest   = BUILD_DIR . '/blocks-manifest.php';
 
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
@@ -44,8 +45,8 @@ function add_block_category( $categories ) {
 	return array(
 		...$categories,
 		array(
-			'slug'	=> 'discogs-blocks',
-			'title' => __('Discogs Blocks', 'discogs-blocks')
+			'slug'  => 'discogs-blocks',
+			'title' => __( 'Discogs Blocks', 'discogs-blocks' )
 		)
 	);
 }
