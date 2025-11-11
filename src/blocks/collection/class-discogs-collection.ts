@@ -9,10 +9,15 @@ export class DiscogsCollection {
 	releases: Array<DiscogsRelease> = [];
 	perPage: number;
 	page: number = 1;
+	pageTemplates: Array<NodeListOf< HTMLElement >>;
+	template: HTMLElement;
+	itemsShown: number;
+	wrapper: HTMLElement;
 
 	constructor( element ) {
 		this.element = element;
-		this.items = element.querySelectorAll( '.discogs-release' );
+		this.template = element.querySelector('.discogs-release');
+		this.wrapper = element.querySelector('.discogs-release-template');
 		this.pagination = element.querySelector('.discogs-collection__pagination');
 		this.perPage = element.dataset.perPage;
 
@@ -23,8 +28,13 @@ export class DiscogsCollection {
 		//TODO use wp-url utilities
 		return apiFetch( { path: `marincarroll/v1/discogs/collection?perPage=${this.perPage}&page=${this.page}` } ).then(
 			( response ) => {
+
 				this.collectionData = JSON.parse( < string >response );
-				this.loadItems();
+				if( this.pageTemplates[this.collectionData.pagination.page]) {
+					//already loaded
+				} else {
+					this.loadItems();
+				}
 			}
 		);
 	}
@@ -45,12 +55,10 @@ export class DiscogsCollection {
 	}
 
 	init() {
-		this.items.forEach( ( item, index ) => {
-			this.releases[index] = new DiscogsRelease( item );
-		} );
-
 		this.fetchCollections().then(() =>{
-			const { pagination } = this.collectionData;
+			const { items, per_page: perPage, page, pages } = this.collectionData.pagination;
+			this.itemsShown = page === pages ? items % perPage : perPage;
+			
 			if( pagination.pages > 1 ) {
 				this.loadPagination( pagination.pages );
 			} else {
@@ -65,7 +73,7 @@ export class DiscogsCollection {
 			if ( releaseData ) {
 				this.releases[ index ].load( releaseData.basic_information );
 			} else {
-				item.remove();
+				//item.remove();
 			}
 		} );
 	}

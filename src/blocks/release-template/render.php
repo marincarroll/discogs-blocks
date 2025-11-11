@@ -18,6 +18,6 @@ $item = sprintf(
 );
 
 printf(
-	'<ul class="discogs-release-template">%s</ul>',
-	str_repeat( $item, $block->context['marincarroll-discogs/perPage'] )
+	'<ul class="discogs-release-template"><template data-wp-each="context.list">%s</template></ul>',
+	$item,
 );

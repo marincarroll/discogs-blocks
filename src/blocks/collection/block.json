@@ -23,6 +23,6 @@
 	},
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
-	"viewScript": "file:./view.js",
+	"viewScriptModule": "file:./view.ts",
 	"render": "file:./render.php"
 }
