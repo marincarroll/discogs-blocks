@@ -50,7 +50,7 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	static function build_discogs_rest_url( $path, $per_page, $page ) {
 		$url = get_option('discogs_user_url' );
 		$token = get_option( 'discogs_access_token' );
-
+		// TODO throw error when no access token added. Prevent using blocks when no access token added.
 		return add_query_arg( array(
 			'token'    => $token,
 			'per_page' => $per_page,

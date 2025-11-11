@@ -18,6 +18,6 @@ $item = sprintf(
 );
 
 printf(
-	'<ul class="discogs-release-template"><template data-wp-each="context.list">%s</template></ul>',
+	'<ul class="discogs-release-template"><template data-wp-each="context.items">%s</template></ul>',
 	$item,
 );

@@ -7,17 +7,17 @@ use WP_Block;
  * @var WP_Block $block;
  */
 
-$list = array();
+$placeholder_items = array();
 
 for( $i = 0; $i < $attributes['perPage']; $i++ ) {
-	$list[] = '{}';
+	$placeholder_items[] = '{ "title": "test", "year": 1970 }';
 }
 
 $block_wrapper_attributes = get_block_wrapper_attributes( array(
-	'data-wp-interactive' => 'marincarroll/discogs',
-	'data-wp-context' => '{ "list": [ ' . join(',', $list ) . ' ] }',
 	'class' => 'discogs-collection',
-	'data-per-page' => $attributes['perPage'],
+	'data-wp-interactive' => 'marincarroll/discogs',
+	'data-wp-context' => '{ "perPage": ' . $attributes['perPage'] . ', "items": [ ' . join(',', $placeholder_items ) . ' ] }',
+	'data-wp-run' => 'actions.load',
 ) );
 
 printf(
