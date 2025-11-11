@@ -20,8 +20,22 @@ $block_wrapper_attributes = get_block_wrapper_attributes( array(
 	'data-wp-run' => 'actions.load',
 ) );
 
+// TODO aria - label, current, prev, next.
+$pagination_button ='<button data-wp-on--click="actions.setPage" data-wp-text="context.item"></button>';
+
+$pagination_template = sprintf(
+	'<template data-wp-each="context.pagination"><li>%s</li></template>',
+	$pagination_button,
+);
+
+$pagination = sprintf(
+	'<nav class="discogs-collection__pagination"><ul>%s</ul></nav>',
+	$pagination_template,
+);
+
 printf(
-	'<div %s>%s<div class="discogs-collection__pagination"></div></div>',
+	'<div %s>%s%s</div>',
 	$block_wrapper_attributes,
 	$content,
+	$pagination,
 );
