@@ -23,7 +23,7 @@
 	},
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
-	"viewScript": ["wp-api-fetch", "wp-url"],
+	"viewScript": [ "wp-api-fetch", "wp-url" ],
 	"viewScriptModule": "file:./view.js",
 	"render": "file:./render.php"
 }

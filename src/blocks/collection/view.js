@@ -5,30 +5,44 @@ import { store, getContext } from '@wordpress/interactivity';
 const { apiFetch } = window.wp;
 const { addQueryArgs } = window.wp.url;
 
-const collectionStore = store( 'marincarroll/discogs', {
-	state: {
-		list: 0,
-		items: {},
-	},
+store( 'marincarroll/discogs', {
 	actions: {
 		*load() {
 			const context = getContext();
-			const response = yield fetchItems(4, 1); //todo
-			const {releases, pagination} =  JSON.parse( response );
+			const response = yield fetchItems( context.perPage, context.page );
+			const { releases, pagination } = JSON.parse( response );
 
-			context.items = releases.map( (release) => {
-				const { year, title } = release.basic_information;
-				return { title, year };
-			});
-		}
+			context.items = releases.map( ( release ) => {
+				const {
+					year,
+					title,
+					artists,
+					formats,
+					cover_image: coverImage,
+				} = release.basic_information;
+
+				return {
+					title,
+					year,
+					formats: arrayToString( formats ),
+					artists: arrayToString( artists ),
+					coverImage,
+				};
+			} );
+		},
 	},
 } );
 
-function fetchItems(perPage, page) {
-	const path = addQueryArgs(
-		'marincarroll/v1/discogs/collection',
-		{ perPage, page }
-	)
+function arrayToString( array ) {
+	const uniqueItems = new Set( array.map( ( item ) => item.name ) );
+	return Array.from( uniqueItems ).join( ', ' );
+}
+
+function fetchItems( perPage, page ) {
+	const path = addQueryArgs( 'marincarroll/v1/discogs/collection', {
+		perPage,
+		page,
+	} );
 
 	return apiFetch( { path } );
 }

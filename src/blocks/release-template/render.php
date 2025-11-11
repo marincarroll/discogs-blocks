@@ -8,7 +8,8 @@ use WP_Block;
  */
 
 $item_wrapper_attributes = get_block_wrapper_attributes( array(
-	'class' => 'discogs-release placeholder',
+	'class' => 'discogs-release',
+	'data-wp-class--placeholder' => '!context.item.title'
 ) );
 
 $item = sprintf(

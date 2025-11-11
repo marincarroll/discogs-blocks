@@ -12,6 +12,7 @@ $wrapper_attributes = get_block_wrapper_attributes( array(
 ) );
 
 printf(
-	'<div %s></div>',
-	$wrapper_attributes
+	'<div %s><img data-wp-bind--src="context.item.coverImage" data-wp-bind--alt="%s"/></div>',
+	$wrapper_attributes,
+	__( 'Cover image', 'discogs-blocks' ),
 );

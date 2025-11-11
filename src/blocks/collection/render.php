@@ -8,15 +8,15 @@ use WP_Block;
  */
 
 $placeholder_items = array();
-
 for( $i = 0; $i < $attributes['perPage']; $i++ ) {
-	$placeholder_items[] = '{ "title": "test", "year": 1970 }';
+	$placeholder_items[] = '{}';
 }
+$placeholder_items = join(',', $placeholder_items );
 
 $block_wrapper_attributes = get_block_wrapper_attributes( array(
 	'class' => 'discogs-collection',
 	'data-wp-interactive' => 'marincarroll/discogs',
-	'data-wp-context' => '{ "perPage": ' . $attributes['perPage'] . ', "items": [ ' . join(',', $placeholder_items ) . ' ] }',
+	'data-wp-context' => '{"page":1,"perPage":' . $attributes['perPage'] . ',"items":[' . $placeholder_items . ']}',
 	'data-wp-run' => 'actions.load',
 ) );
 
