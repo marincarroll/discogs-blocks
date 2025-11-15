@@ -22,6 +22,7 @@ $block_wrapper_attributes = get_block_wrapper_attributes( array(
 
 // TODO aria - label, current, prev, next.
 $pagination_button ='<button
+	class="discogs-collection__pagination-button"
 	data-wp-on--click="actions.setPage"
 	data-wp-run="callbacks.setIsCurrent"
 	data-wp-text="context.item"></button>';
