@@ -2,7 +2,6 @@ import {
 	store,
 	getContext,
 	getElement,
-	useEffect,
 	useWatch,
 } from '@wordpress/interactivity';
 // TODO see if we can convert this file to TS
@@ -23,7 +22,9 @@ const { state } = store( 'marincarroll/discogs', {
 			);
 			const { releases, pagination } = JSON.parse( response );
 			context.items = parseReleaseData( releases );
-			context.pagination = pagination;
+			if( pagination.pages > 1 ) {
+				context.pagination = pagination;
+			}
 		},
 		setPage() {
 			const context = getContext();
@@ -39,7 +40,6 @@ const { state } = store( 'marincarroll/discogs', {
 				if ( ! context.pagination ) {
 					return;
 				}
-
 				ref.innerHTML = '';
 				const pageNumbers = getPageNumbers( context.pagination );
 

@@ -21,7 +21,7 @@ $block_wrapper_attributes = get_block_wrapper_attributes( array(
 ) );
 
 printf(
-	'<div %s>%s<nav class="discogs-collection__pagination"><ul data-wp-run="callbacks.buildPaginationButtons"></ul></nav></div>',
+	'<div %s>%s<nav data-wp-bind--hidden="!context.pagination" class="discogs-collection__pagination"><ul data-wp-run="callbacks.buildPaginationButtons"></ul></nav></div>',
 	$block_wrapper_attributes,
 	$content,
 );
