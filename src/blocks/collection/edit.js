@@ -14,9 +14,7 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks: [ 'marincarroll-discogs/release-template' ],
 		templateLock: 'all',
-		template: [
-			[ 'marincarroll-discogs/release-template' ],
-		],
+		template: [ [ 'marincarroll-discogs/release-template' ] ],
 	} );
 
 	return (
