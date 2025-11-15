@@ -46,3 +46,12 @@
 	min-height: 1em;
 }
 
+.discogs-collection__pagination ul {
+	list-style-type: none;
+	display: flex;
+}
+
+.discogs-collection .is-current {
+	background: red;
+}
+

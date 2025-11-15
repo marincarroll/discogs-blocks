@@ -5,11 +5,21 @@ import { store, getContext, getElement } from '@wordpress/interactivity';
 const { apiFetch } = window.wp;
 const { addQueryArgs } = window.wp.url;
 
-store( 'marincarroll/discogs', {
+const {state} = store( 'marincarroll/discogs', {
+	state: {
+		currentPage: 1,
+		get isCurrentPage() {
+			const { currentPage } = state;
+			const { ref } = getElement();
+			const isCurrent = parseInt( ref.innerText ) === currentPage;
+			ref.ariaCurrent = isCurrent; // For some reason I'm not allowed to bind this w/wp-interactivity
+			return isCurrent;
+		}
+	},
 	actions: {
 		* load(arrayLike) {
 			const context = getContext();
-			const response = yield fetchItems( context.perPage, context.page );
+			const response = yield fetchItems( context.perPage, state.currentPage );
 			const { releases, pagination } = JSON.parse( response );
 
 			context.items = parseReleaseData(releases);
@@ -19,7 +29,7 @@ store( 'marincarroll/discogs', {
 		},
 		setPage() {
 			const context = getContext();
-			context.page = context.item;
+			state.currentPage = context.item;
 		}
 	},
 } );
