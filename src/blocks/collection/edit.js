@@ -16,7 +16,6 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 		templateLock: 'all',
 		template: [
 			[ 'marincarroll-discogs/release-template' ],
-			[ 'core/query-pagination' ],
 		],
 	} );
 

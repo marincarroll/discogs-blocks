@@ -16,14 +16,14 @@ $placeholder_items = join(',', $placeholder_items );
 $block_wrapper_attributes = get_block_wrapper_attributes( array(
 	'class' => 'discogs-collection',
 	'data-wp-interactive' => 'marincarroll/discogs',
-	'data-wp-context' => '{"perPage":' . $attributes['perPage'] . ',"items":[' . $placeholder_items . ']}',
+	'data-wp-context' => '{"currentPage":1,"perPage":' . $attributes['perPage'] . ',"items":[' . $placeholder_items . ']}',
 	'data-wp-run' => 'actions.load',
 ) );
 
 // TODO aria - label, current, prev, next.
 $pagination_button ='<button
-	data-wp-class--is-current="state.isCurrentPage"
 	data-wp-on--click="actions.setPage"
+	data-wp-run="callbacks.setIsCurrent"
 	data-wp-text="context.item"></button>';
 
 $pagination_template = sprintf(

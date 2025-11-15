@@ -51,7 +51,7 @@
 	display: flex;
 }
 
-.discogs-collection .is-current {
+.discogs-collection__pagination button[aria-current="true"] {
 	background: red;
 }
 
