@@ -13,29 +13,32 @@ const { addQueryArgs } = window.wp.url;
 
 const { min, max } = Math;
 
-const { state, callbacks, actions } = store( 'marincarroll/discogs', {
+const { callbacks, actions } = store( 'marincarroll/discogs', {
 	actions: {
 		init() {
 			const context = getContext();
 
-			actions.fetchPage().then( (parsedResponse) => {
+			actions.fetchPage().then( ( parsedResponse ) => {
 				context.maxPages = parsedResponse.pagination.pages;
-			});
+			} );
 		},
 		*fetchPage() {
 			const context = getContext();
-			const storedPage = context.pages[context.currentPage];
+			const storedPage = context.pages[ context.currentPage ];
 
-			if( storedPage ) {
+			if ( storedPage ) {
 				context.items = storedPage;
 				return;
 			}
 
-			const response = yield fetchItems(context.perPage, context.currentPage);
+			const response = yield fetchItems(
+				context.perPage,
+				context.currentPage
+			);
 			const parsedResponse = JSON.parse( response );
 
 			context.items = parseReleaseData( parsedResponse.releases );
-			context.pages[context.currentPage] = context.items;
+			context.pages[ context.currentPage ] = context.items;
 
 			return parsedResponse;
 		},
@@ -43,17 +46,22 @@ const { state, callbacks, actions } = store( 'marincarroll/discogs', {
 	callbacks: {
 		// This is not in the spirit of Preact, but not sure how else to handle the ellipses...
 		buildPaginationButtons() {
+			// eslint-disable-next-line react-hooks/rules-of-hooks
 			useWatch( () => {
 				const { ref } = getElement();
 				const context = getContext();
 
 				ref.innerHTML = '';
-				const pageNumbers = getPageNumbers( context.currentPage, context.maxPages );
+				const pageNumbers = getPageNumbers(
+					context.currentPage,
+					context.maxPages
+				);
 
 				pageNumbers.forEach( ( pageNumber ) => {
 					const item = document.createElement( 'li' );
 					if ( Number.isInteger( pageNumber ) ) {
-						const button =  callbacks.buildPaginationButton(pageNumber);
+						const button =
+							callbacks.buildPaginationButton( pageNumber );
 						item.appendChild( button );
 					} else {
 						const ellipse = document.createElement( 'span' );
@@ -65,12 +73,11 @@ const { state, callbacks, actions } = store( 'marincarroll/discogs', {
 				} );
 			} );
 		},
-		buildPaginationButton(pageNumber) {
+		buildPaginationButton( pageNumber ) {
 			const context = getContext();
 
 			const button = document.createElement( 'button' );
-			const isCurrent =
-				pageNumber === context.currentPage;
+			const isCurrent = pageNumber === context.currentPage;
 
 			button.innerText = pageNumber;
 			button.onclick = () => {
@@ -80,7 +87,7 @@ const { state, callbacks, actions } = store( 'marincarroll/discogs', {
 			button.ariaCurrent = isCurrent.toString();
 
 			return button;
-		}
+		},
 	},
 } );
 
@@ -90,15 +97,26 @@ function getPageNumbers( page, pages ) {
 		Array.from( { length: hi - lo }, ( _, i ) => i + lo );
 	const start = max( 1, min( page - 1, pages - 3 ) );
 	const end = min( pages, max( page + 1, 4 ) );
-	return [
-		...( start > 2 ? [ 1, ellipsis ] : start > 1 ? [ 1 ] : [] ),
-		...range( start, end + 1 ),
-		...( end < pages - 1
-			? [ ellipsis, pages ]
-			: end < pages
-			? [ pages ]
-			: [] ),
-	];
+	const pageNumbers = [];
+	if ( start > 1 ) {
+		pageNumbers.push( 1 );
+	}
+
+	if ( start > 2 ) {
+		pageNumbers.push( ellipsis );
+	}
+
+	pageNumbers.push( ...range( start, end + 1 ) );
+
+	if ( end < pages - 1 ) {
+		pageNumbers.push( ellipsis );
+	}
+
+	if ( end < pages ) {
+		pageNumbers.push( pages );
+	}
+
+	return pageNumbers;
 }
 
 function parseReleaseData( releases ) {

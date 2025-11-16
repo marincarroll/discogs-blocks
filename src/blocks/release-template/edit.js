@@ -54,11 +54,16 @@ export default function Edit( {
 				if ( index === selectedIndex ) {
 					return <li { ...innerBlocksProps } key="selected" />;
 				}
+				const handleOnClick = () => setSelectedIndex( index );
+
 				return (
 					<li
 						{ ...blockPreviewProps }
 						key={ index }
-						onClick={ () => setSelectedIndex( index ) }
+						// eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+						role="button"
+						onClick={ handleOnClick }
+						onKeyDown={ handleOnClick }
 					/>
 				);
 			} ) }
