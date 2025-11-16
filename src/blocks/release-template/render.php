@@ -40,7 +40,7 @@ $item = sprintf(
 	$content
 );
 
-$pagination = '<nav data-wp-bind--hidden="!context.maxPages" class="discogs-collection__pagination">
+$pagination = '<nav data-wp-bind--hidden="!context.maxPages" class="discogs-pagination">
 	<ul data-wp-run="callbacks.buildPaginationButtons"></ul>
 	</nav>';
 

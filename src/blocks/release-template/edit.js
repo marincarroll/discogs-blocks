@@ -3,11 +3,12 @@ import {
 	useInnerBlocksProps,
 	store as blockEditorStore,
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
-	__experimentalUseBlockPreview as useBlockPreview, BlockContextProvider,
+	__experimentalUseBlockPreview as useBlockPreview,
+	BlockContextProvider,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { useState, useEffect,useMemo } from '@wordpress/element';
-import {fetchItems, parseReleaseData} from "./utils";
+import { useState, useEffect, useMemo } from '@wordpress/element';
+import { fetchItems, getPageNumbers, parseReleaseData } from './utils';
 
 export default function Edit( {
 	clientId,
@@ -18,26 +19,32 @@ export default function Edit( {
 	} );
 
 	const [ data, setData ] = useState();
-	useEffect(()=> {
-		fetchItems(perPage, 1).then(response => {
-			const parsedResponse = JSON.parse(response);
-			setData(parsedResponse);
-		});
-	},[perPage]);
+	useEffect( () => {
+		fetchItems( perPage, 1 ).then( ( response ) => {
+			const parsedResponse = JSON.parse( response );
+			setData( parsedResponse );
+		} );
+	}, [ perPage ] );
 
-	const blockContexts = useMemo(() => {
-		if( data?.releases ) {
-			const parsedData = parseReleaseData(data.releases);
-			return parsedData.map( release => {
+	const blockContexts = useMemo( () => {
+		if ( data?.releases ) {
+			const parsedData = parseReleaseData( data.releases );
+			return parsedData.map( ( release ) => {
 				const context = {};
-				Object.keys(release).forEach( (key) => {
-					context[`marincarroll-discogs/${key}`] = release[key];
-				})
+				Object.keys( release ).forEach( ( key ) => {
+					context[ `marincarroll-discogs/${ key }` ] = release[ key ];
+				} );
 
 				return context;
-			})
+			} );
 		}
-	}, [data]);
+	}, [ data ] );
+
+	const pageNumbers = useMemo( () => {
+		if ( data?.pagination?.pages ) {
+			return getPageNumbers( 1, data.pagination.pages );
+		}
+	}, [ data ] );
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
@@ -71,25 +78,49 @@ export default function Edit( {
 					const handleOnClick = () => setSelectedIndex( index );
 
 					return (
-						<BlockContextProvider key={index} value={item}>
-							{  index === selectedIndex
-								 ? <li { ...innerBlocksProps } key="selected" />
-								: <ReleaseBlockPreview
-									blocks={innerBlocksData}
-									handleOnClick={handleOnClick}
-									index={index}
+						<BlockContextProvider key={ index } value={ item }>
+							{ index === selectedIndex ? (
+								<li { ...innerBlocksProps } key="selected" />
+							) : (
+								<ReleaseBlockPreview
+									blocks={ innerBlocksData }
+									handleOnClick={ handleOnClick }
+									index={ index }
 								/>
-							}
+							) }
 						</BlockContextProvider>
 					);
 				} ) }
 			</ul>
+			{ pageNumbers && (
+				<nav className="discogs-pagination">
+					<ul>
+						{ pageNumbers.map( ( pageNumber, index ) => {
+							const className = `discogs-pagination__${
+								Number.isInteger( pageNumber )
+									? 'button'
+									: 'ellipse'
+							}`;
+							return (
+								<li>
+									<span
+										className={ className }
+										aria-current={ index === 0 }
+									>
+										{ pageNumber }
+									</span>
+								</li>
+							);
+						} ) }
+					</ul>
+				</nav>
+			) }
 		</div>
 	);
 }
 
 // TODO memoize to prevent flash, imitating core/query
-function ReleaseBlockPreview({ blocks, handleOnClick, index }) {
+function ReleaseBlockPreview( { blocks, handleOnClick, index } ) {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
 		props: {
@@ -106,5 +137,5 @@ function ReleaseBlockPreview({ blocks, handleOnClick, index }) {
 			onClick={ handleOnClick }
 			onKeyDown={ handleOnClick }
 		/>
-	)
+	);
 }
