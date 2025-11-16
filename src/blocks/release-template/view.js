@@ -10,12 +10,13 @@ import { parseReleaseData, fetchItems, getPageNumbers } from './utils';
 
 const { callbacks, actions } = store( 'marincarroll/discogs', {
 	actions: {
-		init() {
+		*init() {
 			const context = getContext();
 
-			actions.fetchPage().then( ( parsedResponse ) => {
+			const parsedResponse = yield actions.fetchPage();
+			if( parsedResponse ) {
 				context.maxPages = parsedResponse.pagination.pages;
-			} );
+			}
 		},
 		*fetchPage() {
 			const context = getContext();
@@ -30,6 +31,10 @@ const { callbacks, actions } = store( 'marincarroll/discogs', {
 				context.perPage,
 				context.currentPage
 			);
+			if( ! response ) {
+				context.items = [];
+				return;
+			}
 			const parsedResponse = JSON.parse( response );
 
 			context.items = parseReleaseData( parsedResponse.releases );

@@ -38,13 +38,13 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 			),
 		) );
 
-		register_rest_route( $this->namespace, '/' . $this->rest_base . '/wants', array(
+		/*register_rest_route( $this->namespace, '/' . $this->rest_base . '/wants', array(
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_discogs_wantlist' ),
 				'permission_callback' => '__return_true'
 			),
-		) );
+		) );*/
 	}
 
 	static function build_discogs_rest_url( $path, $per_page, $page ) {
@@ -81,10 +81,10 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function get_discogs_wantlist() {
+	/*public function get_discogs_wantlist() {
 		$url = self::build_discogs_rest_url( '/wants' );
 		$discogs_response = wp_remote_get( $url );
 
 		return new WP_REST_Response( $discogs_response, 200 );
-	}
+	}*/
 }
