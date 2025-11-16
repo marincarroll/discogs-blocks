@@ -4,31 +4,40 @@ import {
 	getElement,
 	useWatch,
 } from '@wordpress/interactivity';
+
 // TODO see if we can convert this file to TS
 // Workaround to use wp-api-fetch and wp-url (not modules) in this script (yes a module).
 // See https://make.wordpress.org/core/2024/03/04/script-modules-in-6-5/#:~:text=There%20is%20a,apiFetch%20%7D%20%3D%20window.wp
 const { apiFetch } = window.wp;
 const { addQueryArgs } = window.wp.url;
+
 const { min, max } = Math;
 
-const { state } = store( 'marincarroll/discogs', {
+const { state, callbacks, actions } = store( 'marincarroll/discogs', {
 	actions: {
-		*load( arrayLike ) {
+		init() {
 			const context = getContext();
 
-			const response = yield fetchItems(
-				context.perPage,
-				context.currentPage
-			);
-			const { releases, pagination } = JSON.parse( response );
-			context.items = parseReleaseData( releases );
-			if( pagination.pages > 1 ) {
-				context.pagination = pagination;
-			}
+			actions.fetchPage().then( (parsedResponse) => {
+				context.maxPages = parsedResponse.pagination.pages;
+			});
 		},
-		setPage() {
+		*fetchPage() {
 			const context = getContext();
-			context.currentPage = context.item;
+			const storedPage = context.pages[context.currentPage];
+
+			if( storedPage ) {
+				context.items = storedPage;
+				return;
+			}
+
+			const response = yield fetchItems(context.perPage, context.currentPage);
+			const parsedResponse = JSON.parse( response );
+
+			context.items = parseReleaseData( parsedResponse.releases );
+			context.pages[context.currentPage] = context.items;
+
+			return parsedResponse;
 		},
 	},
 	callbacks: {
@@ -37,25 +46,14 @@ const { state } = store( 'marincarroll/discogs', {
 			useWatch( () => {
 				const { ref } = getElement();
 				const context = getContext();
-				if ( ! context.pagination ) {
-					return;
-				}
+
 				ref.innerHTML = '';
-				const pageNumbers = getPageNumbers( context.pagination );
+				const pageNumbers = getPageNumbers( context.currentPage, context.maxPages );
 
 				pageNumbers.forEach( ( pageNumber ) => {
-					let item = document.createElement( 'li' );
+					const item = document.createElement( 'li' );
 					if ( Number.isInteger( pageNumber ) ) {
-						const button = document.createElement( 'button' );
-						const isCurrent =
-							pageNumber === context.pagination.page;
-
-						button.innerText = pageNumber;
-						button.onclick = () =>
-							( context.currentPage = pageNumber );
-						button.className = '';
-						button.disabled = isCurrent;
-						button.ariaCurrent = isCurrent.toString();
+						const button =  callbacks.buildPaginationButton(pageNumber);
 						item.appendChild( button );
 					} else {
 						const ellipse = document.createElement( 'span' );
@@ -67,15 +65,27 @@ const { state } = store( 'marincarroll/discogs', {
 				} );
 			} );
 		},
+		buildPaginationButton(pageNumber) {
+			const context = getContext();
+
+			const button = document.createElement( 'button' );
+			const isCurrent =
+				pageNumber === context.currentPage;
+
+			button.innerText = pageNumber;
+			button.onclick = () => {
+				context.currentPage = pageNumber;
+			};
+			button.disabled = isCurrent;
+			button.ariaCurrent = isCurrent.toString();
+
+			return button;
+		}
 	},
 } );
 
-function getPageNumbers( pagination ) {
-	const { page, pages } = pagination;
-	if ( pages === 1 ) {
-		return;
-	}
-	const ellipsis = '...';
+function getPageNumbers( page, pages ) {
+	const ellipsis = '...'; // todo real ellipsis
 	const range = ( lo, hi ) =>
 		Array.from( { length: hi - lo }, ( _, i ) => i + lo );
 	const start = max( 1, min( page - 1, pages - 3 ) );
