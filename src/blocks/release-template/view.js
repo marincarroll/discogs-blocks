@@ -4,7 +4,7 @@ import {
 	getElement,
 	useWatch,
 } from '@wordpress/interactivity';
-import { parseReleaseData, fetchItems, getPageNumbers } from "./utils";
+import { parseReleaseData, fetchItems, getPageNumbers } from './utils';
 
 // TODO see if we can convert this file to TS
 
@@ -61,6 +61,7 @@ const { callbacks, actions } = store( 'marincarroll/discogs', {
 					} else {
 						const ellipse = document.createElement( 'span' );
 						ellipse.innerText = pageNumber;
+						ellipse.className = 'discogs-pagination__ellipse';
 						item.appendChild( ellipse );
 					}
 
@@ -78,6 +79,7 @@ const { callbacks, actions } = store( 'marincarroll/discogs', {
 			button.onclick = () => {
 				context.currentPage = pageNumber;
 			};
+			button.className = 'discogs-pagination__button';
 			button.disabled = isCurrent;
 			button.ariaCurrent = isCurrent.toString();
 

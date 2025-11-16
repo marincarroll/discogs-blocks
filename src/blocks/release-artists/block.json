@@ -17,7 +17,7 @@
 			"lineHeight": true
 		}
 	},
-	"usesContext": ["marincarroll-discogs/artists"],
+	"usesContext": [ "marincarroll-discogs/artists" ],
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php"

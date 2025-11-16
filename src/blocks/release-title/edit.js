@@ -1,8 +1,8 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
-export default function Edit({
-	 context: { 'marincarroll-discogs/title': title },
-}) {
+export default function Edit( {
+	context: { 'marincarroll-discogs/title': title },
+} ) {
 	const blockProps = useBlockProps( {
 		className: 'discogs-release__title',
 	} );
