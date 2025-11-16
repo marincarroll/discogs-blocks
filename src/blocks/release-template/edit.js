@@ -102,7 +102,7 @@ export default function Edit( {
 									: 'ellipse'
 							}`;
 							return (
-								<li>
+								<li key={ index }>
 									<span
 										className={ className }
 										aria-current={ index === 0 }
