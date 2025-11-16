@@ -6,7 +6,7 @@
 // TODO add uninstaller to delete options from database
 namespace Marincarroll\Discogs;
 
-class OptionsPage {
+class Options_Page {
 	/**
 	 * @var string|null Discogs personal access token.
 	 *
