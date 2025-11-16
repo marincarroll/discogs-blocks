@@ -12,6 +12,7 @@
 	"supports": {
 		"html": false
 	},
+	"usesContext": [ "marincarroll-discogs/coverImage" ],
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php"
