@@ -10,8 +10,7 @@
 	"example": {},
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full", "center" ],
-		"interactivity": true
+		"align": [ "wide", "full", "center" ]
 	},
 	"attributes": {
 		"perPage": {
@@ -24,7 +23,5 @@
 	},
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
-	"viewScript": [ "wp-api-fetch", "wp-url" ],
-	"viewScriptModule": "file:./view.js",
 	"render": "file:./render.php"
 }

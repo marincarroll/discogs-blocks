@@ -11,11 +11,14 @@
 	"parent": [ "marincarroll-discogs/collection" ],
 	"supports": {
 		"html": false,
-		"className": false
+		"className": false,
+		"interactivity": true
 	},
 	"usesContext": [ "marincarroll-discogs/perPage" ],
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
 	"style": "file:./style-index.css",
-	"render": "file:./render.php"
+	"render": "file:./render.php",
+	"viewScript": [ "wp-api-fetch", "wp-url" ],
+	"viewScriptModule": "file:./view.js"
 }
