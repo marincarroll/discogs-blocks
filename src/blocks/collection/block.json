@@ -10,7 +10,8 @@
 	"example": {},
 	"supports": {
 		"html": false,
-		"align": [ "wide", "full", "center" ]
+		"align": [ "wide", "full", "center" ],
+		"anchor": true
 	},
 	"attributes": {
 		"perPage": {

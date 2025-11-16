@@ -11,6 +11,10 @@
 	"ancestor": [ "marincarroll-discogs/release-template" ],
 	"supports": {
 		"html": false,
+		"color": {
+			"text": true,
+			"background": true
+		},
 		"typography": {
 			"fontSize": true,
 			"textAlign": true,

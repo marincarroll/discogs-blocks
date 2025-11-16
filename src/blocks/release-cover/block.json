@@ -10,7 +10,8 @@
 	"example": {},
 	"ancestor": [ "marincarroll-discogs/release-template" ],
 	"supports": {
-		"html": false
+		"html": false,
+		"shadow": true
 	},
 	"usesContext": [ "marincarroll-discogs/coverImage" ],
 	"textdomain": "marincarroll-discogs",
