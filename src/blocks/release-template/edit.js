@@ -25,11 +25,19 @@ export default function Edit( {
 		});
 	},[perPage]);
 
-	const parsedReleaseData = useMemo(() => {
+	const blockContexts = useMemo(() => {
 		if( data?.releases ) {
-			return parseReleaseData(data.releases);
+			const parsedData = parseReleaseData(data.releases);
+			return parsedData.map( release => {
+				const context = {};
+				Object.keys(release).forEach( (key) => {
+					context[`marincarroll-discogs/${key}`] = release[key];
+				})
+
+				return context;
+			})
 		}
-	}, [data])
+	}, [data]);
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
@@ -59,7 +67,7 @@ export default function Edit( {
 	return (
 		<div { ...blockProps }>
 			<ul>
-				{ parsedReleaseData?.map( ( item, index ) => {
+				{ blockContexts?.map( ( item, index ) => {
 					const handleOnClick = () => setSelectedIndex( index );
 
 					return (
@@ -80,6 +88,7 @@ export default function Edit( {
 	);
 }
 
+// TODO memoize to prevent flash, imitating core/query
 function ReleaseBlockPreview({ blocks, handleOnClick, index }) {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
