@@ -1,0 +1,52 @@
+.discogs-pagination {
+	padding-block: var(--wp--preset--spacing--40);
+}
+
+.discogs-pagination ul {
+	--button-height: 2.25em;
+
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+	gap: var(--wp--preset--spacing--10);
+	margin: 0;
+	padding: 0;
+	height: var(--button-height);
+
+	&:empty {
+		background-color: var(--placeholder-color);
+	}
+}
+
+.discogs-pagination__button {
+	//color: var(--wp--preset--color--contrast);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid transparent;
+	width: var(--button-height);
+	height: var(--button-height);
+	text-align: center;
+	line-height: 0.8;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	background-color: transparent;
+}
+
+button.discogs-pagination__button {
+	color: currentcolor;
+	font-family: inherit;
+	padding: 0;
+	font-size: inherit;
+	cursor: pointer;
+}
+
+.discogs-pagination__button[aria-current="true"] {
+	border-color: currentcolor;
+	cursor: unset;
+}
+
+.discogs-pagination__ellipse {
+	font-size: 1.5em;
+	line-height: 1;
+}

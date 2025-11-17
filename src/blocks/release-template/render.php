@@ -18,13 +18,8 @@ $item = sprintf(
 	$item_wrapper_attributes,
 	$content
 );
-/*
-$pagination = '<nav data-wp-bind--hidden="!context.maxPages" class="discogs-pagination">
-	<ul data-wp-run="callbacks.buildPaginationButtons"></ul>
-	</nav>';
-*/
+
 printf(
 	'<div class="discogs-release-template"><ul><template data-wp-each="context.items">%s</template></ul></div>',
 	$item,
-//	$pagination,
 );

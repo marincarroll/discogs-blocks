@@ -10,19 +10,17 @@ import {
 	BlockContextProvider,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { useState, useEffect, useMemo } from '@wordpress/element';
+import { useState, useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies.
  */
 import { parseReleaseData } from '../utils';
 
-
 export default function Edit( {
 	clientId,
 	context: { 'marincarroll-discogs/releases': releases },
 } ) {
-	console.log(releases);
 	const blockProps = useBlockProps( {
 		className: 'discogs-release-template',
 	} );
@@ -40,12 +38,6 @@ export default function Edit( {
 			} );
 		}
 	}, [ releases ] );
-
-	/*const pageNumbers = useMemo( () => {
-		if ( data?.pagination?.pages ) {
-			return getPageNumbers( 1, data.pagination.pages );
-		}
-	}, [ data ] );*/
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
@@ -93,29 +85,6 @@ export default function Edit( {
 					);
 				} ) }
 			</ul>
-			{ /*pageNumbers && (
-				<nav className="discogs-pagination">
-					<ul>
-						{ pageNumbers.map( ( pageNumber, index ) => {
-							const className = `discogs-pagination__${
-								Number.isInteger( pageNumber )
-									? 'button'
-									: 'ellipse'
-							}`;
-							return (
-								<li key={ index }>
-									<span
-										className={ className }
-										aria-current={ index === 0 }
-									>
-										{ pageNumber }
-									</span>
-								</li>
-							);
-						} ) }
-					</ul>
-				</nav>
-			)*/ }
 		</div>
 	);
 }

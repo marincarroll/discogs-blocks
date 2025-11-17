@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "marincarroll-discogs/pagination",
+	"version": "0.1.0",
+	"title": "Pagination",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Example block scaffolded with Create Block tool.",
+	"example": {},
+	"ancestor": [ "marincarroll-discogs/collection" ],
+	"supports": {
+		"html": false,
+		"color": {
+			"text": true
+		},
+		"typography": {
+			"fontSize": true
+		},
+		"spacing": {
+			"padding": ["vertical"]
+		}
+	},
+	"usesContext": [ "marincarroll-discogs/pagination" ],
+	"textdomain": "marincarroll-discogs",
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"style": "file:./style-index.css",
+	"viewScriptModule": "file:./view.js"
+}

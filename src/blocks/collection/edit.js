@@ -9,15 +9,14 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
-import { useEffect, useState } from "@wordpress/element";
+import { useEffect, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies.
  */
-import { fetchItems } from "../utils";
+import { fetchItems } from '../utils';
 
 export default function Edit( { attributes: { perPage }, setAttributes } ) {
-
 	const [ data, setData ] = useState();
 
 	useEffect( () => {
@@ -34,13 +33,19 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks: [ 'marincarroll-discogs/release-template' ],
 		templateLock: 'all',
-		template: [ [ 'marincarroll-discogs/release-template' ] ],
+		template: [
+			[ 'marincarroll-discogs/release-template' ],
+			[ 'marincarroll-discogs/pagination' ],
+		],
 	} );
 
-	if( ! data ) {
+	if ( ! data ) {
 		return (
-			<div {...blockProps}>
-				{ __('No Discogs Collection found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.', 'nunews-blocks' ) }
+			<div { ...blockProps }>
+				{ __(
+					'No Discogs Collection found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.',
+					'nunews-blocks'
+				) }
 			</div>
 		);
 	}
@@ -60,10 +65,12 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<BlockContextProvider value={{
-				'marincarroll-discogs/pagination': data.pagination,
-				'marincarroll-discogs/releases': data.releases,
-			}}>
+			<BlockContextProvider
+				value={ {
+					'marincarroll-discogs/pagination': data.pagination,
+					'marincarroll-discogs/releases': data.releases,
+				} }
+			>
 				<section { ...innerBlocksProps } />
 			</BlockContextProvider>
 		</>
