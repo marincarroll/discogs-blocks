@@ -2,16 +2,13 @@
  * WordPress dependencies.
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import { useMemo } from "@wordpress/element";
 
 /**
  * Internal dependencies.
  */
 import { getPageNumbers } from '../utils';
 
-export default function Edit( {
-	context: { 'marincarroll-discogs/pagination': pagination },
-} ) {
+export default function Edit() {
 	const blockProps = useBlockProps( {
 		className: 'discogs-pagination',
 	} );

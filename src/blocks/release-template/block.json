@@ -11,7 +11,20 @@
 	"parent": [ "marincarroll-discogs/collection" ],
 	"supports": {
 		"html": false,
-		"className": false
+		"className": false,
+		"layout": {
+			"default": {
+				"type": "grid"
+			}
+		},
+		"spacing": {
+			"padding": true,
+			"margin": true,
+			"blockGap": true
+		},
+		"color": {
+			"text": true
+		}
 	},
 	"usesContext": [ "marincarroll-discogs/releases" ],
 	"textdomain": "marincarroll-discogs",

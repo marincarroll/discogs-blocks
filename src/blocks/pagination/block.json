@@ -18,10 +18,9 @@
 			"fontSize": true
 		},
 		"spacing": {
-			"padding": ["vertical"]
+			"padding": true
 		}
 	},
-	"usesContext": [ "marincarroll-discogs/pagination" ],
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php",

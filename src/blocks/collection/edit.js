@@ -67,7 +67,6 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 			</InspectorControls>
 			<BlockContextProvider
 				value={ {
-					'marincarroll-discogs/pagination': data.pagination,
 					'marincarroll-discogs/releases': data.releases,
 				} }
 			>

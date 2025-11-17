@@ -13,6 +13,11 @@ import { useSelect } from '@wordpress/data';
 import { useState, useMemo } from '@wordpress/element';
 
 /**
+ * External dependencies.
+ */
+import classnames from 'classnames';
+
+/**
  * Internal dependencies.
  */
 import { parseReleaseData } from '../utils';
@@ -20,9 +25,13 @@ import { parseReleaseData } from '../utils';
 export default function Edit( {
 	clientId,
 	context: { 'marincarroll-discogs/releases': releases },
+	__unstableLayoutClassNames,
 } ) {
 	const blockProps = useBlockProps( {
-		className: 'discogs-release-template',
+		className: classnames(
+			'discogs-release-template',
+			__unstableLayoutClassNames
+		),
 	} );
 
 	const blockContexts = useMemo( () => {
@@ -51,6 +60,7 @@ export default function Edit( {
 				[ 'marincarroll-discogs/release-year' ],
 				[ 'marincarroll-discogs/release-formats' ],
 			],
+			__unstableDisableLayoutClassNames: true,
 		}
 	);
 
@@ -65,27 +75,25 @@ export default function Edit( {
 	const [ selectedIndex, setSelectedIndex ] = useState( 0 );
 
 	return (
-		<div { ...blockProps }>
-			<ul>
-				{ blockContexts?.map( ( item, index ) => {
-					const handleOnClick = () => setSelectedIndex( index );
+		<ul { ...blockProps }>
+			{ blockContexts?.map( ( item, index ) => {
+				const handleOnClick = () => setSelectedIndex( index );
 
-					return (
-						<BlockContextProvider key={ index } value={ item }>
-							{ index === selectedIndex ? (
-								<li { ...innerBlocksProps } key="selected" />
-							) : (
-								<ReleaseBlockPreview
-									blocks={ innerBlocksData }
-									handleOnClick={ handleOnClick }
-									index={ index }
-								/>
-							) }
-						</BlockContextProvider>
-					);
-				} ) }
-			</ul>
-		</div>
+				return (
+					<BlockContextProvider key={ index } value={ item }>
+						{ index === selectedIndex ? (
+							<li { ...innerBlocksProps } key="selected" />
+						) : (
+							<ReleaseBlockPreview
+								blocks={ innerBlocksData }
+								handleOnClick={ handleOnClick }
+								index={ index }
+							/>
+						) }
+					</BlockContextProvider>
+				);
+			} ) }
+		</ul>
 	);
 }
 

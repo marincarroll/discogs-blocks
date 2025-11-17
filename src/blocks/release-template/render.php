@@ -9,17 +9,17 @@ use WP_Block;
 
 
 $item_wrapper_attributes = get_block_wrapper_attributes( array(
-	'class' => 'discogs-release',
+	'class' => 'discogs-release-template',
 	'data-wp-class--placeholder' => '!context.item.title'
 ) );
 
 $item = sprintf(
-	'<li %s>%s</li>',
-	$item_wrapper_attributes,
+	'<li class="discogs-release" data-wp-class--placeholder="!context.item.title">%s</li>',
 	$content
 );
 
 printf(
-	'<div class="discogs-release-template"><ul><template data-wp-each="context.items">%s</template></ul></div>',
+	'<ul %s><template data-wp-each="context.items">%s</template></ul>',
+	$item_wrapper_attributes,
 	$item,
 );
