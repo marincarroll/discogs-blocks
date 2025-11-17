@@ -8,15 +8,20 @@
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
-	"ancestor": [ "marincarroll-discogs/release" ],
+	"ancestor": [ "marincarroll-discogs/release-template" ],
 	"supports": {
 		"html": false,
 		"typography": {
 			"fontSize": true,
 			"textAlign": true,
 			"lineHeight": true
+		},
+		"color": {
+			"text": true,
+			"background": true
 		}
 	},
+	"usesContext": [ "marincarroll-discogs/title" ],
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
 	"render": "file:./render.php"

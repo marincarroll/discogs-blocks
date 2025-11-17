@@ -1,29 +1,11 @@
 .discogs-collection {
 	container-type: inline-size;
+	--placeholder-color: rgb(240, 240, 240);
 }
 
 .discogs-release-template {
 	list-style-type: none;
-	display: grid;
-	gap: 1rem;
 	padding: 0;
-	justify-content: center;
-
-	@container (width > 500px) and (width <= 700px) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	@container (width > 700px) and (width <= 1000px) {
-		grid-template-columns: repeat(3, 1fr);
-	}
-
-	@container (width > 1000px)  {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-
-.discogs-release {
-	--placeholder-color: rgb(240, 240, 240);
 }
 
 .discogs-release__cover {

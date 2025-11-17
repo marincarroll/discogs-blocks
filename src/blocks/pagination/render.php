@@ -8,11 +8,11 @@ use WP_Block;
  */
 
 $wrapper_attributes = get_block_wrapper_attributes( array(
-	'class' => 'discogs-release__cover',
+	'class' => 'discogs-pagination',
+	'data-wp-bind--hidden' => '!context.maxPages',
 ) );
 
 printf(
-	'<div %s><img data-wp-bind--src="context.item.coverImage" data-wp-bind--alt="%s"/></div>',
-	$wrapper_attributes,
-	__( 'Cover image', 'discogs-blocks' ),
+	'<nav %s><ul data-wp-run="callbacks.buildPaginationButtons"></ul></nav>',
+	$wrapper_attributes
 );

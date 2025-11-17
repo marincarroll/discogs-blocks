@@ -1,9 +1,11 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
-export default function Edit() {
+export default function Edit( {
+	context: { 'marincarroll-discogs/formats': formats },
+} ) {
 	const blockProps = useBlockProps( {
 		className: 'discogs-release__formats',
 	} );
 
-	return <p { ...blockProps }>Release Formats</p>;
+	return <p { ...blockProps }>{ formats }</p>;
 }

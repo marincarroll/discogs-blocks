@@ -1,34 +1,37 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "marincarroll-discogs/release-template",
+	"name": "marincarroll-discogs/pagination",
 	"version": "0.1.0",
-	"title": "Collection Template",
+	"title": "Pagination",
 	"category": "widgets",
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
-	"parent": [ "marincarroll-discogs/collection" ],
+	"ancestor": [ "marincarroll-discogs/collection" ],
 	"supports": {
 		"html": false,
-		"className": false,
+		"color": {
+			"text": true
+		},
+		"typography": {
+			"fontSize": true
+		},
 		"layout": {
+			"allowOrientation": false,
 			"default": {
-				"type": "grid"
+				"type": "flex",
+				"justifyContent": "center"
 			}
 		},
 		"spacing": {
 			"padding": true,
-			"margin": true,
 			"blockGap": true
-		},
-		"color": {
-			"text": true
 		}
 	},
-	"usesContext": [ "marincarroll-discogs/releases" ],
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
 	"style": "file:./style-index.css",
-	"render": "file:./render.php"
+	"viewScriptModule": "file:./view.js"
 }
