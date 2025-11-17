@@ -11,34 +11,25 @@ import {
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { useState, useEffect, useMemo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
-import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Internal dependencies.
  */
-import { fetchItems, getPageNumbers, parseReleaseData } from './utils';
+import { parseReleaseData } from '../utils';
 
 
 export default function Edit( {
 	clientId,
-	context: { 'marincarroll-discogs/perPage': perPage },
+	context: { 'marincarroll-discogs/releases': releases },
 } ) {
+	console.log(releases);
 	const blockProps = useBlockProps( {
 		className: 'discogs-release-template',
 	} );
 
-	const [ data, setData ] = useState();
-	useEffect( () => {
-		fetchItems( perPage, 1 ).then( ( response ) => {
-			const parsedResponse = JSON.parse( response );
-			setData( parsedResponse );
-		} );
-	}, [ perPage ] );
-
 	const blockContexts = useMemo( () => {
-		if ( data?.releases ) {
-			const parsedData = parseReleaseData( data.releases );
+		if ( releases ) {
+			const parsedData = parseReleaseData( releases );
 			return parsedData.map( ( release ) => {
 				const context = {};
 				Object.keys( release ).forEach( ( key ) => {
@@ -48,13 +39,13 @@ export default function Edit( {
 				return context;
 			} );
 		}
-	}, [ data ] );
+	}, [ releases ] );
 
-	const pageNumbers = useMemo( () => {
+	/*const pageNumbers = useMemo( () => {
 		if ( data?.pagination?.pages ) {
 			return getPageNumbers( 1, data.pagination.pages );
 		}
-	}, [ data ] );
+	}, [ data ] );*/
 
 	const innerBlocksProps = useInnerBlocksProps(
 		{
@@ -79,18 +70,10 @@ export default function Edit( {
 		[ clientId ]
 	);
 
-	const siteUrl = useSelect(select => {
-		const {getSite} = select(coreStore);
-		const site = getSite();
-
-		return site?.url;
-	});
-
 	const [ selectedIndex, setSelectedIndex ] = useState( 0 );
 
 	return (
 		<div { ...blockProps }>
-			{ !data && __('No Discogs Collection data found.', 'nunews-blocks') }
 			<ul>
 				{ blockContexts?.map( ( item, index ) => {
 					const handleOnClick = () => setSelectedIndex( index );
@@ -110,7 +93,7 @@ export default function Edit( {
 					);
 				} ) }
 			</ul>
-			{ pageNumbers && (
+			{ /*pageNumbers && (
 				<nav className="discogs-pagination">
 					<ul>
 						{ pageNumbers.map( ( pageNumber, index ) => {
@@ -132,7 +115,7 @@ export default function Edit( {
 						} ) }
 					</ul>
 				</nav>
-			) }
+			)*/ }
 		</div>
 	);
 }

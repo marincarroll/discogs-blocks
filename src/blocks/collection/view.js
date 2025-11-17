@@ -4,7 +4,7 @@ import {
 	getElement,
 	useWatch,
 } from '@wordpress/interactivity';
-import { parseReleaseData, fetchItems, getPageNumbers } from './utils';
+import { parseReleaseData, fetchItems, getPageNumbers } from '../utils';
 
 // TODO see if we can convert this file to TS
 

@@ -11,7 +11,8 @@
 	"supports": {
 		"html": false,
 		"align": [ "wide", "full", "center" ],
-		"anchor": true
+		"anchor": true,
+		"interactivity": true
 	},
 	"attributes": {
 		"perPage": {
@@ -19,10 +20,9 @@
 			"default": 20
 		}
 	},
-	"providesContext": {
-		"marincarroll-discogs/perPage": "perPage"
-	},
 	"textdomain": "marincarroll-discogs",
 	"editorScript": "file:./index.js",
-	"render": "file:./render.php"
+	"render": "file:./render.php",
+	"viewScript": [ "wp-api-fetch", "wp-url" ],
+	"viewScriptModule": "file:./view.js"
 }
