@@ -17,8 +17,16 @@
 		"typography": {
 			"fontSize": true
 		},
+		"layout": {
+			"allowOrientation": false,
+			"default": {
+				"type": "flex",
+				"justifyContent": "center"
+			}
+		},
 		"spacing": {
-			"padding": true
+			"padding": true,
+			"blockGap": true
 		}
 	},
 	"textdomain": "marincarroll-discogs",

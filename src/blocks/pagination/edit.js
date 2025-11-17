@@ -4,18 +4,23 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
 /**
+ * External dependencies.
+ */
+import classnames from 'classnames';
+
+/**
  * Internal dependencies.
  */
 import { getPageNumbers } from '../utils';
 
-export default function Edit() {
+export default function Edit( { __unstableLayoutClassNames } ) {
 	const blockProps = useBlockProps( {
-		className: 'discogs-pagination',
+		className: classnames( 'discogs-pagination' ),
 	} );
 
 	return (
 		<nav { ...blockProps }>
-			<ul>
+			<ul className={ __unstableLayoutClassNames }>
 				{ getPageNumbers( 1, 12 ).map( ( pageNumber, index ) => {
 					const className = `discogs-pagination__${
 						Number.isInteger( pageNumber ) ? 'button' : 'ellipse'

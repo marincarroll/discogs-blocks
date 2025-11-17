@@ -6,9 +6,6 @@
 	--button-height: 2.25em;
 
 	list-style-type: none;
-	display: flex;
-	justify-content: center;
-	gap: var(--wp--preset--spacing--10);
 	margin: 0;
 	padding: 0;
 	height: var(--button-height);
@@ -19,7 +16,6 @@
 }
 
 .discogs-pagination__button {
-	//color: var(--wp--preset--color--contrast);
 	display: flex;
 	align-items: center;
 	justify-content: center;
