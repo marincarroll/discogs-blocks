@@ -60,3 +60,7 @@ add_action( 'rest_api_init', array( $rest_controller, 'register_routes' ) );
 require_once 'inc/block-bindings.php';
 add_action( 'init', 'Marincarroll\Discogs\register_block_bindings_release_sources' );
 add_action( 'render_block', 'Marincarroll\Discogs\convert_block_bindings_to_interactive_attributes', 10, 2 );
+
+require_once 'inc/block-filters.php';
+add_filter( 'render_block_marincarroll-discogs/pagination', 'Marincarroll\Discogs\move_pagination_layout_classes' );
+
