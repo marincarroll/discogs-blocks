@@ -8,7 +8,7 @@
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
-	"parent": [ "marincarroll-discogs/collection" ],
+	"parent": [ "marincarroll-discogs/release-list" ],
 	"supports": {
 		"html": false,
 		"className": false,

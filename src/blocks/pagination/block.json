@@ -8,7 +8,7 @@
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
-	"ancestor": [ "marincarroll-discogs/collection" ],
+	"ancestor": [ "marincarroll-discogs/release-list" ],
 	"supports": {
 		"html": false,
 		"color": {
@@ -17,7 +17,6 @@
 		"typography": {
 			"fontSize": true,
 			"textAlign": true,
-			"lineHeight": true,
 			"__experimentalFontFamily": true,
 			"__experimentalFontStyle": true,
 			"__experimentalLetterSpacing": true
