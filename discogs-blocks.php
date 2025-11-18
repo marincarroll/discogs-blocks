@@ -58,4 +58,5 @@ $rest_controller = new Discogs_REST_Controller();
 add_action( 'rest_api_init', array( $rest_controller, 'register_routes' ) );
 
 require_once 'inc/block-bindings.php';
-add_action( 'init', 'Marincarroll\Discogs\register_block_bindings_release_sources');
+add_action( 'init', 'Marincarroll\Discogs\register_block_bindings_release_sources' );
+add_action( 'render_block', 'Marincarroll\Discogs\convert_binding_to_interactive_attribute', 10, 2 );

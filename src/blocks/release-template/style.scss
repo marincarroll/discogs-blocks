@@ -20,10 +20,8 @@
 	display: block;
 }
 
-.discogs-release.placeholder .discogs-release__title,
-.discogs-release.placeholder .discogs-release__artists,
-.discogs-release.placeholder .discogs-release__year,
-.discogs-release.placeholder .discogs-release__formats {
+.discogs-release.placeholder .wp-block-heading,
+.discogs-release.placeholder p {
 	background: var(--placeholder-color);
 	min-height: 1em;
 }
