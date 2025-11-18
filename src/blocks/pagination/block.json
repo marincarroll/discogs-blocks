@@ -15,7 +15,12 @@
 			"text": true
 		},
 		"typography": {
-			"fontSize": true
+			"fontSize": true,
+			"textAlign": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontStyle": true,
+			"__experimentalLetterSpacing": true
 		},
 		"layout": {
 			"allowOrientation": false,
