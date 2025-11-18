@@ -59,7 +59,7 @@ function register_block_bindings_release_sources() {
 	);
 }
 
-function convert_binding_to_interactive_attribute( string $block_content, array $block ) {
+function convert_block_bindings_to_interactive_attributes( string $block_content, array $block ) {
 	if( !isset( $block['attrs']['metadata']['bindings'] ) ) {
 		return $block_content;
 	}
@@ -74,24 +74,15 @@ function convert_binding_to_interactive_attribute( string $block_content, array 
 
 	$tags = new WP_HTML_Tag_Processor( $block_content );
 
-	// TODO refactor, extract shared logic.
 	if( $has_bound_content ) {
-		$value = str_replace(
-			BINDINGS_NAMESPACE . '/release-',
-			'context.item.',
-			$bindings['content']['source']
-		);
+		$value = convert_block_binding_to_interactive_attribute( $bindings['content'] );
 
 		$tags->next_tag();
 		$tags->set_attribute( 'data-wp-text', $value );
 	}
 
 	if( $has_bound_url ){
-		$value = str_replace(
-			BINDINGS_NAMESPACE . '/release-',
-			'context.item.',
-			$bindings['url']['source']
-		);
+		$value = convert_block_binding_to_interactive_attribute( $bindings['url'] );
 
 		$tags->next_tag('img');
 		$tags->set_attribute( 'data-wp-bind--src', $value );
@@ -99,4 +90,12 @@ function convert_binding_to_interactive_attribute( string $block_content, array 
 	}
 
 	return $tags->get_updated_html();
+}
+
+function convert_block_binding_to_interactive_attribute( $binding ) {
+	return str_replace(
+		BINDINGS_NAMESPACE . '/release-',
+		'context.item.',
+		$binding['source']
+	);
 }

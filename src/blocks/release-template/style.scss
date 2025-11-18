@@ -10,6 +10,11 @@
 
 .discogs-release.placeholder .wp-block-image {
 	background: var(--placeholder-color);
+	aspect-ratio: 1/1; // TODO filter blocks to apply this in render
+}
+
+.discogs-release.placeholder .wp-block-image img {
+	display: none;
 }
 
 .discogs-release.placeholder .wp-block-heading,
