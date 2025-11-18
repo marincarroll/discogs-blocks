@@ -22,6 +22,26 @@ registerBlockType( metadata.name, {
 } );
 
 registerBlockBindingsSource( {
+	name: 'marincarroll-discogs/release-alt',
+	getValues() {
+		return {
+			alt: __('Cover image', 'discogs-blocks'),
+		};
+	} }
+)
+
+registerBlockBindingsSource( {
+	name: 'marincarroll-discogs/release-image',
+	usesContext: [ 'marincarroll-discogs/release' ],
+	getValues( { context } ) {
+		return {
+			url: context[ 'marincarroll-discogs/release' ].image,
+		};
+	} }
+)
+
+
+registerBlockBindingsSource( {
 	name: 'marincarroll-discogs/release-artists',
 	usesContext: [ 'marincarroll-discogs/release' ],
 	getValues( { context } ) {

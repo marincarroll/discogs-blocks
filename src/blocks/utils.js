@@ -41,7 +41,7 @@ export function parseReleaseData( releases ) {
 			title,
 			artists,
 			formats,
-			cover_image: coverImage,
+			cover_image: image,
 		} = release.basic_information;
 
 		return {
@@ -49,7 +49,7 @@ export function parseReleaseData( releases ) {
 			year,
 			formats: arrayToString( formats ),
 			artists: arrayToString( artists ),
-			coverImage,
+			image,
 		};
 	} );
 }

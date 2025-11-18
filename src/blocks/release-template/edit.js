@@ -23,27 +23,23 @@ import classnames from 'classnames';
 import { parseReleaseData } from '../utils';
 
 const INNER_BLOCKS_TEMPLATE = [
-		/*[
+		[
 			'core/image',
 			{
+				"aspectRatio":"1",
+				"scale":"cover",
 				"metadata": {
 					"bindings": {
 						"url": {
-							"source": "marincarroll-discogs/release",
-							"args": {
-								"key": "coverImage"
-							}
+							"source": "marincarroll-discogs/release-image",
 						},
 						"alt": {
-							"source": "marincarroll-discogs/release",
-							"args": {
-								"key": "coverImage"
-							}
+							"source": "marincarroll-discogs/release-alt",
 						}
 					}
 				}
 			}
-		],*/
+		],
 		[ 'core/heading',
 			{
 				"metadata":{
