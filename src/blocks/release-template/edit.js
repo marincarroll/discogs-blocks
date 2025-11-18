@@ -33,6 +33,12 @@ const INNER_BLOCKS_TEMPLATE = [
 							"args": {
 								"key": "coverImage"
 							}
+						},
+						"alt": {
+							"source": "marincarroll-discogs/release",
+							"args": {
+								"key": "coverImage"
+							}
 						}
 					}
 				}
@@ -43,10 +49,7 @@ const INNER_BLOCKS_TEMPLATE = [
 				"metadata":{
 					"bindings":{
 						"content": {
-							"source": "marincarroll-discogs/release",
-							"args": {
-								"key": "title"
-							}
+							"source": "marincarroll-discogs/release-title",
 						}
 					}
 				},
@@ -57,10 +60,7 @@ const INNER_BLOCKS_TEMPLATE = [
 				"metadata":{
 					"bindings":{
 						"content": {
-							"source": "marincarroll-discogs/release",
-							"args": {
-								"key": "artists"
-							}
+							"source": "marincarroll-discogs/release-artists"
 						}
 					}
 				},
@@ -70,10 +70,7 @@ const INNER_BLOCKS_TEMPLATE = [
 				"metadata":{
 					"bindings":{
 						"content": {
-							"source": "marincarroll-discogs/release",
-							"args": {
-								"key": "year"
-							}
+							"source": "marincarroll-discogs/release-year"
 						}
 					}
 				},
@@ -83,10 +80,7 @@ const INNER_BLOCKS_TEMPLATE = [
 				"metadata":{
 					"bindings":{
 						"content": {
-							"source": "marincarroll-discogs/release",
-							"args": {
-								"key": "formats"
-							}
+							"source": "marincarroll-discogs/release-formats"
 						}
 					}
 				},
@@ -109,13 +103,7 @@ export default function Edit( {
 		if ( releases ) {
 			const parsedData = parseReleaseData( releases );
 			return parsedData.map( ( release ) => {
-				const context = {};
-				Object.keys( release ).forEach( ( key ) => {
-					context[ `marincarroll-discogs/${ key }` ] = release[ key ];
-				} );
-				context[ `marincarroll-discogs/release` ] = release;
-
-				return context;
+				return {'marincarroll-discogs/release': release};
 			} );
 		}
 	}, [ releases ] );

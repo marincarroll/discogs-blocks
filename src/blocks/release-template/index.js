@@ -13,19 +13,6 @@ import metadata from './block.json';
 
 import './style.scss';
 
-registerBlockBindingsSource( {
-	name: 'marincarroll-discogs/release',
-	usesContext: [ 'marincarroll-discogs/release' ],
-	getValues( { context, bindings } ) {
-		const key = bindings.content.args.key;
-		let value = context[ 'marincarroll-discogs/release' ][key];
-
-		return {
-			content: value.toString(),
-		};
-	} }
-)
-
 registerBlockType( metadata.name, {
 	/**
 	 * @see ./edit.js
@@ -33,3 +20,45 @@ registerBlockType( metadata.name, {
 	edit: Edit,
 	save: () => <InnerBlocks.Content />,
 } );
+
+registerBlockBindingsSource( {
+	name: 'marincarroll-discogs/release-artists',
+	usesContext: [ 'marincarroll-discogs/release' ],
+	getValues( { context } ) {
+		return {
+			content: context[ 'marincarroll-discogs/release' ].artists,
+		};
+	} }
+)
+
+registerBlockBindingsSource( {
+	name: 'marincarroll-discogs/release-formats',
+	usesContext: [ 'marincarroll-discogs/release' ],
+	getValues( { context } ) {
+		return {
+			content: context[ 'marincarroll-discogs/release' ].formats,
+		};
+	} }
+)
+
+registerBlockBindingsSource( {
+	name: 'marincarroll-discogs/release-year',
+	usesContext: [ 'marincarroll-discogs/release' ],
+	getValues( { context } ) {
+		const year = context[ 'marincarroll-discogs/release' ].year;
+
+		return {
+			content: year.toString(),
+		};
+	} }
+)
+
+registerBlockBindingsSource( {
+	name: 'marincarroll-discogs/release-title',
+	usesContext: [ 'marincarroll-discogs/release' ],
+	getValues( { context } ) {
+		return {
+			content: context[ 'marincarroll-discogs/release' ].title,
+		};
+	} }
+)
