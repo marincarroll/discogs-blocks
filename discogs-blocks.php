@@ -56,3 +56,17 @@ require_once 'inc/class-discogs-rest-controller.php';
 $rest_controller = new Discogs_REST_Controller();
 
 add_action( 'rest_api_init', array( $rest_controller, 'register_routes' ) );
+
+add_action(
+	'init',
+	function () {
+		register_block_bindings_source(
+			'marincarroll-discogs/release',
+			array(
+				'label'              => __( 'Release Data', 'custom-bindings' ),
+				'get_value_callback' => function () {},
+			//	'uses_context'       => array( 'marincarroll-discogs/release' ),
+			)
+		);
+	}
+);

@@ -22,6 +22,77 @@ import classnames from 'classnames';
  */
 import { parseReleaseData } from '../utils';
 
+const INNER_BLOCKS_TEMPLATE = [
+		/*[
+			'core/image',
+			{
+				"metadata": {
+					"bindings": {
+						"url": {
+							"source": "marincarroll-discogs/release",
+							"args": {
+								"key": "coverImage"
+							}
+						}
+					}
+				}
+			}
+		],*/
+		[ 'core/heading',
+			{
+				"metadata":{
+					"bindings":{
+						"content": {
+							"source": "marincarroll-discogs/release",
+							"args": {
+								"key": "title"
+							}
+						}
+					}
+				},
+			} ],
+		[ 'core/heading',
+			{
+				"level": 3,
+				"metadata":{
+					"bindings":{
+						"content": {
+							"source": "marincarroll-discogs/release",
+							"args": {
+								"key": "artists"
+							}
+						}
+					}
+				},
+			} ],
+		[ 'core/paragraph',
+			{
+				"metadata":{
+					"bindings":{
+						"content": {
+							"source": "marincarroll-discogs/release",
+							"args": {
+								"key": "year"
+							}
+						}
+					}
+				},
+			} ],
+		[ 'core/paragraph',
+			{
+				"metadata":{
+					"bindings":{
+						"content": {
+							"source": "marincarroll-discogs/release",
+							"args": {
+								"key": "formats"
+							}
+						}
+					}
+				},
+			} ],
+	];
+
 export default function Edit( {
 	clientId,
 	context: { 'marincarroll-discogs/releases': releases },
@@ -42,6 +113,7 @@ export default function Edit( {
 				Object.keys( release ).forEach( ( key ) => {
 					context[ `marincarroll-discogs/${ key }` ] = release[ key ];
 				} );
+				context[ `marincarroll-discogs/release` ] = release;
 
 				return context;
 			} );
@@ -53,13 +125,7 @@ export default function Edit( {
 			className: 'discogs-release',
 		},
 		{
-			template: [
-				[ 'marincarroll-discogs/release-cover' ],
-				[ 'marincarroll-discogs/release-title' ],
-				[ 'marincarroll-discogs/release-artists' ],
-				[ 'marincarroll-discogs/release-year' ],
-				[ 'marincarroll-discogs/release-formats' ],
-			],
+			template: INNER_BLOCKS_TEMPLATE,
 			__unstableDisableLayoutClassNames: true,
 		}
 	);

@@ -1,10 +1,9 @@
 /**
- * Registers a new block provided a unique name and an object defining its behavior.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ * WordPress dependencies.
  */
-import { registerBlockType } from '@wordpress/blocks';
+import {registerBlockBindingsSource, registerBlockType} from '@wordpress/blocks';
 import { InnerBlocks } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -13,6 +12,19 @@ import Edit from './edit';
 import metadata from './block.json';
 
 import './style.scss';
+
+registerBlockBindingsSource( {
+	name: 'marincarroll-discogs/release',
+	usesContext: [ 'marincarroll-discogs/release' ],
+	getValues( { context, bindings } ) {
+		const key = bindings.content.args.key;
+		let value = context[ 'marincarroll-discogs/release' ][key];
+
+		return {
+			content: value.toString(),
+		};
+	} }
+)
 
 registerBlockType( metadata.name, {
 	/**
