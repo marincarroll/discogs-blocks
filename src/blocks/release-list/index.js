@@ -11,6 +11,7 @@ import { InnerBlocks } from '@wordpress/block-editor';
  */
 import Edit from './edit';
 import metadata from './block.json';
+import variations from "./variations";
 
 registerBlockType( metadata.name, {
 	/**
@@ -18,4 +19,5 @@ registerBlockType( metadata.name, {
 	 */
 	edit: Edit,
 	save: () => <InnerBlocks.Content />,
+	variations,
 } );
