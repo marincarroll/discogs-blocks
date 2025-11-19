@@ -9,8 +9,9 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 
 	protected $rest_base = 'discogs';
 
-	static private $collections_path = '/collection/folders/0/releases';
-
+	static private string $collections_path = '/collection/folders/0/releases';
+	static private string $wants_path = '/wants';
+	
 	// TODO add schema.
 
 	/**
@@ -21,7 +22,6 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 			'perPage' => array(
 				'type'              => 'integer',
 				'required'          => true,
-				'default' => 10, //todo temp
 				'validate_callback' => function ( $param ) {
 					return is_numeric( $param );
 				}
@@ -53,6 +53,24 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 				'args'                => $pagination_args
 			),
 		) );
+
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/wants', array(
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_discogs_wants' ),
+				'permission_callback' => '__return_true',
+				'args'                => $pagination_args
+			),
+		) );
+
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/wants/releases', array(
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_discogs_wants_releases' ),
+				'permission_callback' => '__return_true',
+				'args'                => $pagination_args
+			),
+		) );
 	}
 
 	static function build_discogs_rest_url( $path, $per_page, $page ) {
@@ -80,6 +98,19 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 
 	static function get_discogs_collection_releases( $request ) {
 		$release_list = self::get_discogs_release_list( $request, self::$collections_path );
+		$releases = $release_list->releases;
+
+		return new WP_REST_Response( $releases, 200 );
+	}
+
+	static function get_discogs_wants( $request ) {
+		$release_list = self::get_discogs_release_list( $request, self::$wants_path );
+
+		return new WP_REST_Response( $release_list, 200 );
+	}
+
+	static function get_discogs_wants_releases( $request ) {
+		$release_list = self::get_discogs_release_list( $request, self::$wants_path );
 		$releases = $release_list->releases;
 
 		return new WP_REST_Response( $releases, 200 );
