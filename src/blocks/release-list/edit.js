@@ -9,18 +9,22 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
+import { useEntityRecords } from '@wordpress/core-data';
 
 /**
  * Internal dependencies.
  */
 import { parseReleaseData } from '../utils';
-import { useSelect } from '@wordpress/data';
 
-export default function Edit( { attributes: { perPage }, setAttributes } ) {
-	const releaseData = useSelect( ( select ) => {
-		const { getEntityRecords } = select( 'core' );
-		return getEntityRecords( 'marincarroll/v1', 'collection-releases' );
-	}, [] );
+export default function Edit( {
+	attributes: { perPage, type },
+	setAttributes,
+} ) {
+	const { records: releaseData } = useEntityRecords(
+		'marincarroll/v1',
+		type + '-releases',
+		{ perPage }
+	);
 
 	const blockProps = useBlockProps( {
 		className: 'discogs-collection',
@@ -34,17 +38,6 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 			[ 'marincarroll-discogs/pagination' ],
 		],
 	} );
-
-	if ( ! releaseData ) {
-		return (
-			<div { ...blockProps }>
-				{ __(
-					'No Discogs Collection found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.',
-					'nunews-blocks'
-				) }
-			</div>
-		);
-	}
 
 	return (
 		<>
@@ -61,14 +54,19 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<BlockContextProvider
-				value={ {
-					'marincarroll-discogs/releases':
-						parseReleaseData( releaseData ),
-				} }
-			>
-				<section { ...innerBlocksProps } />
-			</BlockContextProvider>
+			{ releaseData ? (
+				<BlockContextProvider
+					value={ {
+						'marincarroll-discogs/releases':
+							parseReleaseData( releaseData ),
+					} }
+				>
+					<section { ...innerBlocksProps } />
+				</BlockContextProvider>
+			) : __(
+				'No Discogs Collection found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.',
+				'nunews-blocks'
+			) }
 		</>
 	);
 }

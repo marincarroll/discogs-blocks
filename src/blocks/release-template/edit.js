@@ -17,11 +17,6 @@ import { useState, useMemo } from '@wordpress/element';
  */
 import classnames from 'classnames';
 
-/**
- * Internal dependencies.
- */
-import { parseReleaseData } from '../utils';
-
 const INNER_BLOCKS_TEMPLATE = [
 	[
 		'core/image',
