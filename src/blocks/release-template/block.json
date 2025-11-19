@@ -12,6 +12,7 @@
 	"supports": {
 		"html": false,
 		"className": false,
+		"interactivity": "true",
 		"layout": {
 			"default": {
 				"type": "grid"
