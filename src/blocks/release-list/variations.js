@@ -6,6 +6,9 @@ export default [
 			type: 'collection',
 		},
 		isDefault: true,
+		scope: [ 'inserter', 'transform' ],
+		isActive: [ 'type' ],
+
 	},
 	{
 		name: 'wants',
@@ -13,5 +16,7 @@ export default [
 		attributes: {
 			type: 'wants',
 		},
+		scope: [ 'inserter', 'transform' ],
+		isActive: [ 'type' ],
 	},
 ];
