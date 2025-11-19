@@ -15,27 +15,39 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
+		$pagination_args = array(
+			'perPage' => array(
+				'type'              => 'integer',
+				'required'          => true,
+				'validate_callback' => function ( $param ) {
+					return is_numeric( $param );
+				}
+			),
+			'page'    => array(
+				'type'              => 'integer',
+				'required'          => true,
+				'default'           => 1,
+				'validate_callback' => function ( $param ) {
+					return is_numeric( $param );
+				}
+			),
+		);
+
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/collection', array(
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_discogs_collection' ),
 				'permission_callback' => '__return_true',
-				'args'                => array(
-					'perPage' => array(
-						'type'              => 'integer',
-						'required'          => true,
-						'validate_callback' => function ( $param ) {
-							return is_numeric( $param );
-						}
-					),
-					'page'    => array(
-						'type'              => 'integer',
-						'required'          => true,
-						'validate_callback' => function ( $param ) {
-							return is_numeric( $param );
-						}
-					)
-				),
+				'args'                => $pagination_args
+			),
+		) );
+
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/collection/releases', array(
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_discogs_collection_releases' ),
+				'permission_callback' => '__return_true',
+				'args'                => $pagination_args
 			),
 		) );
 
@@ -64,17 +76,26 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function get_discogs_collection( $request ) {
-		$params                = $request->get_params();
-		$url                   = self::build_discogs_rest_url(
-			'/collection/folders/0/releases',
-			$params['perPage'],
-			$params['page'],
-		);
-		$discogs_response      = wp_remote_get( $url );
-		$discogs_response_body = wp_remote_retrieve_body( $discogs_response );
+	static function get_discogs_collection( $request ) {
+		$release_list = self::get_discogs_release_list( $request, '/collection/folders/0/releases' );
+		$release_list = json_decode( $release_list );
+		return new WP_REST_Response( $release_list, 200 );
+	}
 
-		return new WP_REST_Response( $discogs_response_body, 200 );
+	static function get_discogs_collection_releases( $request ) {
+		$release_list = self::get_discogs_release_list( $request, '/collection/folders/0/releases' );
+		$release_list = json_decode( $release_list );
+		$releases = $release_list->releases;
+
+		return new WP_REST_Response( $releases, 200 );
+	}
+
+	private static function get_discogs_release_list( $request, $path ) {
+		$params = $request->get_params();
+		$url = self::build_discogs_rest_url( $path, $params['perPage'], $params['page'] );
+		$discogs_response = wp_remote_get( $url );
+
+		return wp_remote_retrieve_body( $discogs_response );
 	}
 
 	/**

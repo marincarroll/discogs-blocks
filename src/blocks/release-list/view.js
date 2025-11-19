@@ -5,14 +5,6 @@ import { parseReleaseData, fetchItems } from '../utils';
 
 const { actions } = store( 'marincarroll/discogs', {
 	actions: {
-		*init() {
-			const context = getContext();
-
-			const parsedResponse = yield actions.fetchPage();
-			if ( parsedResponse ) {
-				context.maxPages = parsedResponse.pagination.pages;
-			}
-		},
 		*fetchPage() {
 			const context = getContext();
 			const storedPage = context.pages[ context.currentPage ];
@@ -22,20 +14,19 @@ const { actions } = store( 'marincarroll/discogs', {
 				return;
 			}
 
-			const response = yield fetchItems(
-				context.perPage,
-				context.currentPage
-			);
-			if ( ! response ) {
+			const response = yield fetchItems(context.perPage, context.currentPage);
+
+			/*if ( ! response ) {
 				context.items = [];
 				return;
-			}
-			const parsedResponse = JSON.parse( response );
+			}*/
 
-			context.items = parseReleaseData( parsedResponse.releases );
+			context.items = parseReleaseData( response.releases );
 			context.pages[ context.currentPage ] = context.items;
 
-			return parsedResponse;
+			if ( ! context.maxPages ) {
+				context.maxPages = parsedResponse.pagination.pages;
+			}
 		},
 	},
 } );
