@@ -1,7 +1,10 @@
 /**
  * WordPress dependencies.
  */
-import {registerBlockBindingsSource, registerBlockType} from '@wordpress/blocks';
+import {
+	registerBlockBindingsSource,
+	registerBlockType,
+} from '@wordpress/blocks';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -25,10 +28,10 @@ registerBlockBindingsSource( {
 	name: 'marincarroll-discogs/release-alt',
 	getValues() {
 		return {
-			alt: __('Cover image', 'discogs-blocks'),
+			alt: __( 'Cover image', 'discogs-blocks' ),
 		};
-	} }
-)
+	},
+} );
 
 registerBlockBindingsSource( {
 	name: 'marincarroll-discogs/release-image',
@@ -37,9 +40,8 @@ registerBlockBindingsSource( {
 		return {
 			url: context[ 'marincarroll-discogs/release' ].image,
 		};
-	} }
-)
-
+	},
+} );
 
 registerBlockBindingsSource( {
 	name: 'marincarroll-discogs/release-artists',
@@ -48,8 +50,8 @@ registerBlockBindingsSource( {
 		return {
 			content: context[ 'marincarroll-discogs/release' ].artists,
 		};
-	} }
-)
+	},
+} );
 
 registerBlockBindingsSource( {
 	name: 'marincarroll-discogs/release-formats',
@@ -58,8 +60,8 @@ registerBlockBindingsSource( {
 		return {
 			content: context[ 'marincarroll-discogs/release' ].formats,
 		};
-	} }
-)
+	},
+} );
 
 registerBlockBindingsSource( {
 	name: 'marincarroll-discogs/release-year',
@@ -70,8 +72,8 @@ registerBlockBindingsSource( {
 		return {
 			content: year.toString(),
 		};
-	} }
-)
+	},
+} );
 
 registerBlockBindingsSource( {
 	name: 'marincarroll-discogs/release-title',
@@ -80,5 +82,5 @@ registerBlockBindingsSource( {
 		return {
 			content: context[ 'marincarroll-discogs/release' ].title,
 		};
-	} }
-)
+	},
+} );

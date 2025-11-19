@@ -5,6 +5,6 @@ export default [
 		attributes: {
 			type: 'collection',
 		},
-		isDefault: true
+		isDefault: true,
 	},
-]
+];

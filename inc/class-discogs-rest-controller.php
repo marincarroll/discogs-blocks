@@ -9,6 +9,8 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 
 	protected $rest_base = 'discogs';
 
+	static private $collections_path = '/collection/folders/0/releases';
+
 	// TODO add schema.
 
 	/**
@@ -19,11 +21,12 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 			'perPage' => array(
 				'type'              => 'integer',
 				'required'          => true,
+				'default' => 10, //todo temp
 				'validate_callback' => function ( $param ) {
 					return is_numeric( $param );
 				}
 			),
-			'page'    => array(
+			'page' => array(
 				'type'              => 'integer',
 				'required'          => true,
 				'default'           => 1,
@@ -50,19 +53,12 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 				'args'                => $pagination_args
 			),
 		) );
-
-		/*register_rest_route( $this->namespace, '/' . $this->rest_base . '/wants', array(
-			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_discogs_wantlist' ),
-				'permission_callback' => '__return_true'
-			),
-		) );*/
 	}
 
 	static function build_discogs_rest_url( $path, $per_page, $page ) {
 		$url   = get_option( 'discogs_user_url' );
 		$token = get_option( 'discogs_access_token' );
+
 		// TODO throw error when no access token added. Prevent using blocks when no access token added.
 		return add_query_arg( array(
 			'token'    => $token,
@@ -77,14 +73,13 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response
 	 */
 	static function get_discogs_collection( $request ) {
-		$release_list = self::get_discogs_release_list( $request, '/collection/folders/0/releases' );
-		$release_list = json_decode( $release_list );
+		$release_list = self::get_discogs_release_list( $request, self::$collections_path );
+
 		return new WP_REST_Response( $release_list, 200 );
 	}
 
 	static function get_discogs_collection_releases( $request ) {
-		$release_list = self::get_discogs_release_list( $request, '/collection/folders/0/releases' );
-		$release_list = json_decode( $release_list );
+		$release_list = self::get_discogs_release_list( $request, self::$collections_path );
 		$releases = $release_list->releases;
 
 		return new WP_REST_Response( $releases, 200 );
@@ -95,19 +90,7 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 		$url = self::build_discogs_rest_url( $path, $params['perPage'], $params['page'] );
 		$discogs_response = wp_remote_get( $url );
 
-		return wp_remote_retrieve_body( $discogs_response );
+		$body = wp_remote_retrieve_body( $discogs_response );
+		return json_decode( $body );
 	}
-
-	/**
-	 * TODO
-	 *
-	 * @return WP_REST_Response
-	 */
-
-	/*public function get_discogs_wantlist() {
-		$url = self::build_discogs_rest_url( '/wants' );
-		$discogs_response = wp_remote_get( $url );
-
-		return new WP_REST_Response( $discogs_response, 200 );
-	}*/
 }

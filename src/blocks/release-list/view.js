@@ -14,7 +14,10 @@ const { actions } = store( 'marincarroll/discogs', {
 				return;
 			}
 
-			const response = yield fetchItems(context.perPage, context.currentPage);
+			const response = yield fetchItems(
+				context.perPage,
+				context.currentPage
+			);
 
 			/*if ( ! response ) {
 				context.items = [];

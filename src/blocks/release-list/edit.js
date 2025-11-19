@@ -9,22 +9,18 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { PanelBody, RangeControl } from '@wordpress/components';
-import { useEffect, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies.
  */
-import { fetchItems } from '../utils';
+import { parseReleaseData } from '../utils';
+import { useSelect } from '@wordpress/data';
 
 export default function Edit( { attributes: { perPage }, setAttributes } ) {
-	const [ data, setData ] = useState();
-
-	useEffect( () => {
-		fetchItems( perPage, 1 ).then( ( response ) => {
-			const parsedResponse = JSON.parse( response );
-			setData( parsedResponse );
-		} );
-	}, [ perPage ] );
+	const releaseData = useSelect( ( select ) => {
+		const { getEntityRecords } = select( 'core' );
+		return getEntityRecords( 'marincarroll/v1', 'collection-releases' );
+	}, [] );
 
 	const blockProps = useBlockProps( {
 		className: 'discogs-collection',
@@ -39,7 +35,7 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 		],
 	} );
 
-	if ( ! data ) {
+	if ( ! releaseData ) {
 		return (
 			<div { ...blockProps }>
 				{ __(
@@ -67,7 +63,8 @@ export default function Edit( { attributes: { perPage }, setAttributes } ) {
 			</InspectorControls>
 			<BlockContextProvider
 				value={ {
-					'marincarroll-discogs/releases': data.releases,
+					'marincarroll-discogs/releases':
+						parseReleaseData( releaseData ),
 				} }
 			>
 				<section { ...innerBlocksProps } />

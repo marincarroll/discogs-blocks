@@ -23,65 +23,73 @@ import classnames from 'classnames';
 import { parseReleaseData } from '../utils';
 
 const INNER_BLOCKS_TEMPLATE = [
-		[
-			'core/image',
-			{
-				"aspectRatio":"1",
-				"scale":"cover",
-				"metadata": {
-					"bindings": {
-						"url": {
-							"source": "marincarroll-discogs/release-image",
-						},
-						"alt": {
-							"source": "marincarroll-discogs/release-alt",
-						}
-					}
-				}
-			}
-		],
-		[ 'core/heading',
-			{
-				"metadata":{
-					"bindings":{
-						"content": {
-							"source": "marincarroll-discogs/release-title",
-						}
-					}
+	[
+		'core/image',
+		{
+			aspectRatio: '1',
+			scale: 'cover',
+			metadata: {
+				bindings: {
+					url: {
+						source: 'marincarroll-discogs/release-image',
+					},
+					alt: {
+						source: 'marincarroll-discogs/release-alt',
+					},
 				},
-			} ],
-		[ 'core/heading',
-			{
-				"level": 3,
-				"metadata":{
-					"bindings":{
-						"content": {
-							"source": "marincarroll-discogs/release-artists"
-						}
-					}
+			},
+		},
+	],
+	[
+		'core/heading',
+		{
+			metadata: {
+				bindings: {
+					content: {
+						source: 'marincarroll-discogs/release-title',
+					},
 				},
-			} ],
-		[ 'core/paragraph',
-			{
-				"metadata":{
-					"bindings":{
-						"content": {
-							"source": "marincarroll-discogs/release-year"
-						}
-					}
+			},
+		},
+	],
+	[
+		'core/heading',
+		{
+			level: 3,
+			metadata: {
+				bindings: {
+					content: {
+						source: 'marincarroll-discogs/release-artists',
+					},
 				},
-			} ],
-		[ 'core/paragraph',
-			{
-				"metadata":{
-					"bindings":{
-						"content": {
-							"source": "marincarroll-discogs/release-formats"
-						}
-					}
+			},
+		},
+	],
+	[
+		'core/paragraph',
+		{
+			metadata: {
+				bindings: {
+					content: {
+						source: 'marincarroll-discogs/release-year',
+					},
 				},
-			} ],
-	];
+			},
+		},
+	],
+	[
+		'core/paragraph',
+		{
+			metadata: {
+				bindings: {
+					content: {
+						source: 'marincarroll-discogs/release-formats',
+					},
+				},
+			},
+		},
+	],
+];
 
 export default function Edit( {
 	clientId,
@@ -97,9 +105,8 @@ export default function Edit( {
 
 	const blockContexts = useMemo( () => {
 		if ( releases ) {
-			const parsedData = parseReleaseData( releases );
-			return parsedData.map( ( release ) => {
-				return {'marincarroll-discogs/release': release};
+			return releases.map( ( release ) => {
+				return { 'marincarroll-discogs/release': release };
 			} );
 		}
 	}, [ releases ] );
