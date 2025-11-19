@@ -15,9 +15,9 @@ for( $i = 0; $i < $per_page; $i++ ) {
 $placeholder_items = join(',', $placeholder_items );
 
 $block_wrapper_attributes = get_block_wrapper_attributes( array(
-	'class' => 'discogs-collection',
+	'class' => 'discogs-release-list',
 	'data-wp-interactive' => 'marincarroll/discogs',
-	'data-wp-context' => '{"pages":[],"currentPage":1,"perPage":' . $per_page . ',"items":[' . $placeholder_items . ']}',
+	'data-wp-context' => '{"type":"' . $attributes['type'] . '","pages":[],"currentPage":1,"perPage":' . $per_page . ',"items":[' . $placeholder_items . ']}',
 	'data-wp-run' => 'actions.fetchPage',
 ) );
 

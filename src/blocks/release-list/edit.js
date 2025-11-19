@@ -27,7 +27,7 @@ export default function Edit( {
 	);
 
 	const blockProps = useBlockProps( {
-		className: 'discogs-collection',
+		className: 'discogs-release-list',
 	} );
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
@@ -64,7 +64,7 @@ export default function Edit( {
 					<section { ...innerBlocksProps } />
 				</BlockContextProvider>
 			) : __(
-				'No Discogs Collection found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.',
+				'No Discogs Releases found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.',
 				'nunews-blocks'
 			) }
 		</>

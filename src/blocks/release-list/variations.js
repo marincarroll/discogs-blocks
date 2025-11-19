@@ -7,4 +7,11 @@ export default [
 		},
 		isDefault: true,
 	},
+	{
+		name: 'wants',
+		title: 'Wantlist',
+		attributes: {
+			type: 'wants',
+		},
+	},
 ];

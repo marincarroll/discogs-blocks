@@ -11,7 +11,7 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 
 	static private string $collections_path = '/collection/folders/0/releases';
 	static private string $wants_path = '/wants';
-	
+
 	// TODO add schema.
 
 	/**
@@ -106,12 +106,15 @@ class Discogs_REST_Controller extends WP_REST_Controller {
 	static function get_discogs_wants( $request ) {
 		$release_list = self::get_discogs_release_list( $request, self::$wants_path );
 
+		$release_list->releases = $release_list->wants;
+		unset( $release_list->wants );
+
 		return new WP_REST_Response( $release_list, 200 );
 	}
 
 	static function get_discogs_wants_releases( $request ) {
 		$release_list = self::get_discogs_release_list( $request, self::$wants_path );
-		$releases = $release_list->releases;
+		$releases = $release_list->wants;
 
 		return new WP_REST_Response( $releases, 200 );
 	}

@@ -14,21 +14,19 @@ const { actions } = store( 'marincarroll/discogs', {
 				return;
 			}
 
-			const response = yield fetchItems(
-				context.perPage,
-				context.currentPage
-			);
-
+			const response = yield fetchItems(context.perPage, context.currentPage, context.type);
 			/*if ( ! response ) {
 				context.items = [];
 				return;
 			}*/
 
 			context.items = parseReleaseData( response.releases );
-			context.pages[ context.currentPage ] = context.items;
 
-			if ( ! context.maxPages ) {
-				context.maxPages = parsedResponse.pagination.pages;
+			context.pages[ context.currentPage ] = context.items;
+			console.log(context.items);
+
+			if ( ! context.maxPages && response.pagination.pages > 1) {
+				context.maxPages = response.pagination.pages;
 			}
 		},
 	},

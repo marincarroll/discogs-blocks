@@ -59,8 +59,8 @@ function arrayToString( array ) {
 	return Array.from( uniqueItems ).join( ', ' );
 }
 
-export function fetchItems( perPage, page ) {
-	const path = addQueryArgs( 'marincarroll/v1/discogs/collection', {
+export function fetchItems( perPage, page, type ) {
+	const path = addQueryArgs( 'marincarroll/v1/discogs/' + type, {
 		perPage,
 		page,
 	} );
