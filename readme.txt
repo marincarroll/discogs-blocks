@@ -20,31 +20,25 @@ This is a WIP and is not yet tested or released, but please feel free to downloa
 3. Enter your Discogs.com personal access token through the 'Settings > Discogs Blocks' screen in WordPress
 4. Insert a "Collection" block via the block editor
 
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+== Todo ==
+[] Track down elusive options page bug
+[] Test when invalid page params are provided to endpoints
+[] Test endpoints when authentication is removed
+[] Test when endpoint has no results
+[] Figure out why block editor experience is using a lot of memory
+[] Loading message vs no auth provided message vs error block has no data (ideally also display endpoint error message
+ in console)
+[] Figure out why useEntityRecords loads slowly so there's 'flash'
+[] Ensure placeholder image aspect ratio matches selected attribute
+[] Imitate core/query to prevent 'flash' when selecting inner blocks in template
+[] Block examples
+[] Block naming/descriptions
+[] Block icons (maybe pick out a color?)
+[] PHP linting/sniffing
+[] Block custom category
+[] Ensure custom entities are registered at correct point
+[] Docs
 
 == Changelog ==
 
-= 0.1.0 =
-* Release
 
-== Arbitrary section ==
-
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
