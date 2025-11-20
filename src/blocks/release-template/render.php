@@ -10,8 +10,7 @@ use WP_Block;
 
 $item_wrapper_attributes = get_block_wrapper_attributes( array(
 	'class' => 'discogs-release-template',
-	'data-wp-interactive' => 'marincarroll/discogs',
-	'data-wp-class--placeholder' => '!context.item.title'
+	'data-wp-interactive' => 'marincarroll/discogs'
 ) );
 
 $item = sprintf(

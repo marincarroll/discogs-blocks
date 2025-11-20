@@ -1,0 +1,11 @@
+.discogs-release__cover {
+	background: var(--placeholder-color);
+	aspect-ratio: 1;
+}
+
+.discogs-release__cover img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}

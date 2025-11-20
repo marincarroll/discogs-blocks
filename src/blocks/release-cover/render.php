@@ -8,11 +8,11 @@ use WP_Block;
  */
 
 $wrapper_attributes = get_block_wrapper_attributes( array(
-	'class' => 'discogs-release__meta',
-	'data-wp-text' => 'context.item.' . $attributes['type'],
+	'class' => 'discogs-release__cover',
 ) );
 
 printf(
-	'<h2 %s></h2>',
-	$wrapper_attributes
+	'<div %s><img data-wp-bind--src="context.item.image" data-wp-bind--alt="%s"/></div>',
+	$wrapper_attributes,
+	__( 'Cover image', 'discogs-blocks' ),
 );

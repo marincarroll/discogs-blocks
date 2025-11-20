@@ -36,4 +36,4 @@ export default [
 		scope: [ 'inserter', 'transform' ],
 		isActive: [ 'type' ],
 	},
-]
+];

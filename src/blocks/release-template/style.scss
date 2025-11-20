@@ -1,25 +1,8 @@
-.discogs-collection {
-	container-type: inline-size;
-	--placeholder-color: rgb(240, 240, 240);
-}
-
 .discogs-release-template {
+	--placeholder-color: rgb(240, 240, 240);
+
 	list-style-type: none;
 	padding: 0;
 }
 
-.discogs-release.placeholder .wp-block-image {
-	background: var(--placeholder-color);
-	aspect-ratio: 1/1; // TODO filter blocks to apply this in render
-}
-
-.discogs-release.placeholder .wp-block-image img {
-	display: none;
-}
-
-.discogs-release.placeholder .wp-block-heading,
-.discogs-release.placeholder p {
-	background: var(--placeholder-color);
-	min-height: 1em;
-}
 

@@ -18,23 +18,7 @@ import { useState, useMemo } from '@wordpress/element';
 import classnames from 'classnames';
 
 const INNER_BLOCKS_TEMPLATE = [
-	[
-		'core/image',
-		{
-			aspectRatio: '1',
-			scale: 'cover',
-			metadata: {
-				bindings: {
-					url: {
-						source: 'marincarroll-discogs/release-image',
-					},
-					alt: {
-						source: 'marincarroll-discogs/release-alt',
-					},
-				},
-			},
-		},
-	],
+	[ 'marincarroll-discogs/release-cover' ],
 	[ 'marincarroll-discogs/release-meta', { type: 'title' } ],
 	[ 'marincarroll-discogs/release-meta', { type: 'artists' } ],
 	[
