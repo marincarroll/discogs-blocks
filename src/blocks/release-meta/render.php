@@ -12,7 +12,10 @@ $wrapper_attributes = get_block_wrapper_attributes( array(
 	'data-wp-text' => 'context.item.' . $attributes['type'],
 ) );
 
+$tag_name = $attributes['level'] === 0 ? 'p' : 'h' . $attributes['level'];
+
 printf(
-	'<h2 %s></h2>',
+	'<%1$s %2$s></%1$s>',
+	$tag_name,
 	$wrapper_attributes
 );

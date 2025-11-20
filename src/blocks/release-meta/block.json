@@ -12,6 +12,10 @@
 	"attributes": {
 		"type": {
 			"type": "string"
+		},
+		"level": {
+			"type": "number",
+			"default": 0
 		}
 	},
 	"supports": {
