@@ -1,7 +1,7 @@
 export default [
 	{
 		name: 'year',
-		title: 'Year',
+		title: 'Release Year',
 		attributes: {
 			type: 'year',
 		},
@@ -11,7 +11,7 @@ export default [
 	},
 	{
 		name: 'formats',
-		title: 'Formats',
+		title: 'Release Formats',
 		attributes: {
 			type: 'formats',
 		},
@@ -20,7 +20,7 @@ export default [
 	},
 	{
 		name: 'title',
-		title: 'Title',
+		title: 'Release Title',
 		attributes: {
 			type: 'title',
 		},
@@ -29,7 +29,7 @@ export default [
 	},
 	{
 		name: 'artists',
-		title: 'Artists',
+		title: 'Release Artists',
 		attributes: {
 			type: 'artists',
 		},

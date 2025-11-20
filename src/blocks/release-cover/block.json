@@ -11,7 +11,15 @@
 	"ancestor": [ "marincarroll-discogs/release-template" ],
 	"supports": {
 		"html": false,
-		"shadow": true
+		"shadow": true,
+		"spacing": {
+			"margin": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"width": true
+		}
 	},
 	"usesContext": [ "marincarroll-discogs/release" ],
 	"textdomain": "marincarroll-discogs",

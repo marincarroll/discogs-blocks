@@ -1,6 +1,7 @@
 .discogs-release__cover {
 	background: var(--placeholder-color);
 	aspect-ratio: 1;
+	overflow: hidden;
 }
 
 .discogs-release__cover img {
