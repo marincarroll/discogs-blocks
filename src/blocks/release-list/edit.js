@@ -32,7 +32,6 @@ export default function Edit( {
 
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks: [ 'marincarroll-discogs/release-template' ],
-		templateLock: 'all',
 		template: [
 			[ 'marincarroll-discogs/release-template' ],
 			[ 'marincarroll-discogs/pagination' ],
@@ -63,9 +62,11 @@ export default function Edit( {
 				>
 					<section { ...innerBlocksProps } />
 				</BlockContextProvider>
-			) : __(
-				'No Discogs Releases found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.',
-				'nunews-blocks'
+			) : (
+				__(
+					'No Discogs Releases found. Please ensure you have entered a valid Personal Access Token in Settings > Discogs Blocks.',
+					'nunews-blocks'
+				)
 			) }
 		</>
 	);

@@ -8,7 +8,6 @@ export default [
 		isDefault: true,
 		scope: [ 'inserter', 'transform' ],
 		isActive: [ 'type' ],
-
 	},
 	{
 		name: 'wants',

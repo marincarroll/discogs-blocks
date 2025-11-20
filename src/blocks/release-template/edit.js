@@ -35,54 +35,19 @@ const INNER_BLOCKS_TEMPLATE = [
 			},
 		},
 	],
+	[ 'marincarroll-discogs/release-meta', { type: 'title' } ],
+	[ 'marincarroll-discogs/release-meta', { type: 'artists' } ],
 	[
-		'core/heading',
+		'core/group',
 		{
-			metadata: {
-				bindings: {
-					content: {
-						source: 'marincarroll-discogs/release-title',
-					},
-				},
+			layout: {
+				type: 'flex',
 			},
 		},
-	],
-	[
-		'core/heading',
-		{
-			level: 3,
-			metadata: {
-				bindings: {
-					content: {
-						source: 'marincarroll-discogs/release-artists',
-					},
-				},
-			},
-		},
-	],
-	[
-		'core/paragraph',
-		{
-			metadata: {
-				bindings: {
-					content: {
-						source: 'marincarroll-discogs/release-year',
-					},
-				},
-			},
-		},
-	],
-	[
-		'core/paragraph',
-		{
-			metadata: {
-				bindings: {
-					content: {
-						source: 'marincarroll-discogs/release-formats',
-					},
-				},
-			},
-		},
+		[
+			[ 'marincarroll-discogs/release-meta', { type: 'formats' } ],
+			[ 'marincarroll-discogs/release-meta', { type: 'year' } ],
+		],
 	],
 ];
 

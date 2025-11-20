@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "marincarroll-discogs/release-meta",
+	"version": "0.1.0",
+	"title": "Release Metadata",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Example block scaffolded with Create Block tool.",
+	"example": {},
+	"ancestor": [ "marincarroll-discogs/release-template" ],
+	"attributes": {
+		"type": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"html": false,
+		"color": {
+			"text": true,
+			"background": true
+		},
+		"typography": {
+			"fontSize": true,
+			"textAlign": true,
+			"lineHeight": true
+		}
+	},
+	"usesContext": [ "marincarroll-discogs/release" ],
+	"textdomain": "marincarroll-discogs",
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

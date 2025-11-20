@@ -12,13 +12,13 @@ import { __ } from '@wordpress/i18n';
 const { addEntities } = dispatch( coreStore );
 addEntities( [
 	{
-	//	label: __( 'Your Custom Entity Label', 'discogs-blocks' ), // Display name in tools
+		//	label: __( 'Your Custom Entity Label', 'discogs-blocks' ), // Display name in tools
 		name: 'collection-releases',
 		kind: 'marincarroll/v1',
 		baseURL: 'marincarroll/v1/discogs/collection/releases',
 	},
 	{
-	//	label: __( 'Your Custom Entity Label', 'discogs-blocks' ), // Display name in tools
+		//	label: __( 'Your Custom Entity Label', 'discogs-blocks' ), // Display name in tools
 		name: 'wants-releases',
 		kind: 'marincarroll/v1',
 		baseURL: 'marincarroll/v1/discogs/wants/releases',
