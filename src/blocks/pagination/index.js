@@ -10,6 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import Edit from './edit';
 import metadata from './block.json';
+import { ICON_FILL, PaginationIcon } from '../../icons';
 
 import './style.scss';
 
@@ -19,4 +20,8 @@ registerBlockType( metadata.name, {
 	 */
 	edit: Edit,
 	save: () => null,
+	icon: {
+		src: PaginationIcon,
+		foreground: ICON_FILL,
+	},
 } );
