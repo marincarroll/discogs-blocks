@@ -27,7 +27,6 @@ const { actions } = store( 'marincarroll/discogs', {
 			context.items = parseReleaseData( response.releases );
 
 			context.pages[ context.currentPage ] = context.items;
-			console.log( context.items );
 
 			if ( ! context.maxPages && response.pagination.pages > 1 ) {
 				context.maxPages = response.pagination.pages;

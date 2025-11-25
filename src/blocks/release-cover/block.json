@@ -4,7 +4,7 @@
 	"name": "marincarroll-discogs/release-cover",
 	"version": "0.1.0",
 	"title": "Cover Image",
-	"category": "widgets",
+	"category": "discogs-blocks",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"ancestor": [ "marincarroll-discogs/release-template" ],

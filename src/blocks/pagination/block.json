@@ -4,7 +4,7 @@
 	"name": "marincarroll-discogs/pagination",
 	"version": "0.1.0",
 	"title": "Pagination",
-	"category": "widgets",
+	"category": "discogs-blocks",
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},

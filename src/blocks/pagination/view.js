@@ -12,7 +12,7 @@ const { callbacks } = store( 'marincarroll/discogs', {
 	callbacks: {
 		// This is not in the spirit of Preact, but not sure how else to handle the ellipses...
 		buildPaginationButtons() {
-			// eslint-disable-next-line react-hooks/rules-of-hooks
+			// eslint-disable-next-line react-hooks/rules-of-hooks Special case for wp-interactivity
 			useWatch( () => {
 				const { ref } = getElement();
 				const context = getContext();
