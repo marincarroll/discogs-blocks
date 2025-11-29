@@ -8,6 +8,7 @@
 		}
 	},
 	"scripts": {
-		"phpcs": "phpcs --standard=WordPress ./inc;  phpcs --standard=WordPress ./discogs-blocks.php"
+		"phpcs": "phpcs --standard=WordPress ./inc; phpcs --standard=WordPress ./discogs-blocks.php",
+		"phpcbf": "phpcbf --standard=WordPress ./inc; phpcbf --standard=WordPress ./discogs-blocks.php"
 	}
 }

@@ -36,7 +36,7 @@ class Options_Page {
 	private $_page_slug = 'marincarroll_discogs';
 
 	public function __construct() {
-		$this->_access_token = get_option( 'discogs_access_token' );
+		$this->_access_token     = get_option( 'discogs_access_token' );
 		$this->_discogs_user_url = get_option( 'discogs_user_url' );
 		$this->set_discogs_user();
 	}
@@ -52,16 +52,19 @@ class Options_Page {
 		$next_identity = '';
 
 		if ( $value ) {
-			$identity_endpoint = add_query_arg( array(
-				'token' => $value,
-			), DISCOGS_REST_ROUTE . '/oauth/identity' );
+			$identity_endpoint = add_query_arg(
+				array(
+					'token' => $value,
+				),
+				DISCOGS_REST_ROUTE . '/oauth/identity'
+			);
 
 			$identity_response = wp_remote_get( $identity_endpoint );
 			if ( wp_remote_retrieve_response_code( $identity_response ) === 200 ) {
 				$identity_response_body = json_decode( wp_remote_retrieve_body( $identity_response ) );
-				$next_identity = $identity_response_body->resource_url;
+				$next_identity          = $identity_response_body->resource_url;
 			}
-		};
+		}
 
 		update_option( 'discogs_user_url', $next_identity );
 	}
@@ -71,8 +74,8 @@ class Options_Page {
 	 * Gets Discogs User Profile from API.
 	 */
 	private function set_discogs_user() {
-		if( $this->_discogs_user_url ) {
-			$user_response = wp_remote_get( $this->_discogs_user_url );
+		if ( $this->_discogs_user_url ) {
+			$user_response       = wp_remote_get( $this->_discogs_user_url );
 			$this->_discogs_user = json_decode( wp_remote_retrieve_body( $user_response ) );
 		}
 	}
@@ -90,10 +93,10 @@ class Options_Page {
 				?>
 				<div class="wrap">
 					<form method="post" action="options.php">
-						<h1><?php esc_html_e( get_admin_page_title() ) ?></h1>
-						<?php settings_fields( $this->_page_slug ) ?>
-						<?php do_settings_sections( $this->_page_slug ) ?>
-						<?php submit_button() ?>
+						<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
+						<?php settings_fields( $this->_page_slug ); ?>
+						<?php do_settings_sections( $this->_page_slug ); ?>
+						<?php submit_button(); ?>
 					</form>
 				</div>
 				<?php
@@ -107,7 +110,7 @@ class Options_Page {
 	private function render_authentication_notice() {
 		if ( ! $this->_access_token || ! $this->_discogs_user ) {
 			$message          = sprintf(
-				__( '%s <a href="%s" target="_blank">%s</a>.', 'discogs-blocks' ),
+				__( '%1$s <a href="%2$s" target="_blank">%3$s</a>.', 'discogs-blocks' ),
 				__( 'You can generate a new access token by visiting', 'discogs-blocks' ),
 				esc_url( 'https://www.discogs.com/settings/developers' ),
 				__( 'Discogs Developer Settings', 'discogs-blocks' )
@@ -115,14 +118,14 @@ class Options_Page {
 			$notice_class_str = 'notice inline';
 
 			if ( $this->_access_token ) {
-				$message          = __( 'Invalid token.', 'discogs-blocks' ) . ' ' . $message;
+				$message           = __( 'Invalid token.', 'discogs-blocks' ) . ' ' . $message;
 				$notice_class_str .= ' error';
 			}
 
 			return '<div class="' . $notice_class_str . '"><p>' . $message . '</p></div>';
 		} else {
-			$message            = sprintf(
-				__( 'Validated user <a href="%s">%s</a>. We\'ll use this as the default when displaying Collections, Lists and Wantlists.', 'discogs-blocks' ),
+			$message = sprintf(
+				__( 'Validated user <a href="%1$s">%2$s</a>. We\'ll use this as the default when displaying Collections, Lists and Wantlists.', 'discogs-blocks' ),
 				esc_url( $this->_discogs_user->uri ),
 				esc_html( $this->_discogs_user->name )
 			);
@@ -152,7 +155,7 @@ class Options_Page {
 			$this->_page_slug,
 			$this->_page_slug . '_authentication',
 			array(
-				'label_for' => 'discogs_access_token'
+				'label_for' => 'discogs_access_token',
 			)
 		);
 	}

@@ -20,15 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'Marincarroll\Discogs\BUILD_DIR' ) ) {
-	define( 'Marincarroll\Discogs\BUILD_DIR', plugin_dir_path(__FILE__) . '/build');
+	define( 'Marincarroll\Discogs\BUILD_DIR', plugin_dir_path( __FILE__ ) . '/build' );
 }
 
 if ( ! defined( 'Marincarroll\Discogs\BUILD_URL' ) ) {
-	define( 'Marincarroll\Discogs\BUILD_URL', plugin_dir_url(__FILE__) . '/build');
+	define( 'Marincarroll\Discogs\BUILD_URL', plugin_dir_url( __FILE__ ) . '/build' );
 }
 
 if ( ! defined( 'Marincarroll\Discogs\DISCOGS_REST_ROUTE' ) ) {
-	define( 'Marincarroll\Discogs\DISCOGS_REST_ROUTE', 'https://api.discogs.com');
+	define( 'Marincarroll\Discogs\DISCOGS_REST_ROUTE', 'https://api.discogs.com' );
 }
 
 // Registers block types.
@@ -39,7 +39,7 @@ add_filter( 'block_categories_all', 'Marincarroll\Discogs\add_block_category' );
 // Creates options.
 require_once 'inc/options.php';
 add_action( 'admin_init', 'Marincarroll\Discogs\register_discogs_access_token_setting' );
-//add_action( 'admin_init', 'Marincarroll\Discogs\register_discogs_user_url_setting' );  TODO: mysteriously breaks user url storage.
+// add_action( 'admin_init', 'Marincarroll\Discogs\register_discogs_user_url_setting' );  TODO: mysteriously breaks user url storage.
 add_action( 'rest_api_init', 'Marincarroll\Discogs\register_discogs_user_url_setting' );
 
 // Creates options page.
@@ -59,4 +59,3 @@ add_action( 'rest_api_init', array( $rest_controller, 'register_routes' ) );
 
 require_once 'inc/block-filters.php';
 add_filter( 'render_block_marincarroll-discogs/pagination', 'Marincarroll\Discogs\move_pagination_layout_classes' );
-

@@ -38,9 +38,9 @@ function register_discogs_user_url_setting() {
 		'marincarroll_discogs',
 		'discogs_user_url',
 		array(
-			'type' => 'string',
+			'type'              => 'string',
 			'sanitize_callback' => 'Marincarroll\Discogs\sanitize_discogs_user_url_field',
-			'show_in_rest' => array(
+			'show_in_rest'      => array(
 				'schema' => array(
 					'format' => 'uri',
 				),
@@ -50,8 +50,7 @@ function register_discogs_user_url_setting() {
 }
 
 function sanitize_discogs_user_url_field( $input ) {
-	if( $input ) {
+	if ( $input ) {
 		return esc_url( $input );
 	}
 }
-

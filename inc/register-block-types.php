@@ -46,7 +46,7 @@ function add_block_category( $categories ) {
 		...$categories,
 		array(
 			'slug'  => 'discogs-blocks',
-			'title' => __( 'Discogs Blocks', 'discogs-blocks' )
-		)
+			'title' => __( 'Discogs Blocks', 'discogs-blocks' ),
+		),
 	);
 }
