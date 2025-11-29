@@ -10,7 +10,7 @@ import {
 	BlockContextProvider,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
-import { useState, useMemo } from '@wordpress/element';
+import { useState, useMemo, memo } from '@wordpress/element';
 
 /**
  * External dependencies.
@@ -48,11 +48,9 @@ export default function Edit( {
 	} );
 
 	const blockContexts = useMemo( () => {
-		if ( releases ) {
-			return releases.map( ( release ) => {
-				return { 'marincarroll-discogs/release': release };
-			} );
-		}
+		return releases.map( ( release ) => {
+			return { 'marincarroll-discogs/release': release };
+		} );
 	}, [ releases ] );
 
 	const innerBlocksProps = useInnerBlocksProps(
@@ -82,15 +80,15 @@ export default function Edit( {
 
 				return (
 					<BlockContextProvider key={ index } value={ item }>
-						{ index === selectedIndex ? (
+						{ index === selectedIndex && (
 							<li { ...innerBlocksProps } key="selected" />
-						) : (
-							<ReleaseBlockPreview
-								blocks={ innerBlocksData }
-								handleOnClick={ handleOnClick }
-								index={ index }
-							/>
 						) }
+						<MemoizedReleaseBlockPreview
+							blocks={ innerBlocksData }
+							handleOnClick={ handleOnClick }
+							index={ index }
+							isHidden={ index === selectedIndex }
+						/>
 					</BlockContextProvider>
 				);
 			} ) }
@@ -99,7 +97,7 @@ export default function Edit( {
 }
 
 // TODO memoize to prevent flash, imitating core/query
-function ReleaseBlockPreview( { blocks, handleOnClick, index } ) {
+function ReleaseBlockPreview( { blocks, handleOnClick, index, isHidden } ) {
 	const blockPreviewProps = useBlockPreview( {
 		blocks,
 		props: {
@@ -115,6 +113,9 @@ function ReleaseBlockPreview( { blocks, handleOnClick, index } ) {
 			role="button"
 			onClick={ handleOnClick }
 			onKeyDown={ handleOnClick }
+			style={ { display: isHidden ? 'none' : undefined } }
 		/>
 	);
 }
+
+const MemoizedReleaseBlockPreview = memo(ReleaseBlockPreview);
